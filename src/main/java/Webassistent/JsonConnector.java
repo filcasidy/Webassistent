@@ -19,7 +19,6 @@ public class JsonConnector {
         String inputLine;
 
         try {
-            //"http://carlofontanos.com/api/tutorials.php?data=all" <- Zum Testen
             URL  url = new URL(urlString); // URL to Parse
             URLConnection urlConnection = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));

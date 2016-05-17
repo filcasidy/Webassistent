@@ -12,11 +12,11 @@ public class JsonParser {
 
             JSONObject actualJsonObject = (JSONObject) jsonObject;
 
-            Long id = (Long) actualJsonObject.get("ID");
+            int id = (int) actualJsonObject.get("id");
             System.out.println("Post ID : " + id);
 
-            String title = (String) actualJsonObject.get("post_title");
-            System.out.println("Post Title : " + title);
+            String message = (String) actualJsonObject.get("message");
+            System.out.println("Message : " + message);
 
             System.out.println("\n");
         }
