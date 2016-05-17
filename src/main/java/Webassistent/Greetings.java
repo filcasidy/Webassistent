@@ -1,13 +1,10 @@
 package Webassistent;
 
 import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.NotFoundException;
-import com.google.appengine.api.users.User;
-
-import java.util.ArrayList;
 
 import javax.inject.Named;
+import java.util.ArrayList;
 
 @Api(
     name = "webassistent",
