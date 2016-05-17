@@ -48,7 +48,7 @@ google.devrel.samples.hello.print = function(greeting) {
  * @param {string} id ID of the greeting.
  */
 google.devrel.samples.hello.getGreeting = function(id) {
-  gapi.client.webassistent.greetings.getGreeting({'id': id}).execute(
+  gapi.client.webassistent.webassistentService.getGreeting({'id': id}).execute(
       function(resp) {
         if (!resp.code) {
           google.devrel.samples.hello.print(resp);
