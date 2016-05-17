@@ -22,4 +22,10 @@ public interface IService {
     boolean hasCommand(String userCommand);
 
 
+    /**
+     * Depending on user command gets the service responese.
+     * @param userCommand which will be typed in as a command.
+     * @return an object which contains the response
+     */
+    Object getServiceResponse(String userCommand);
 }

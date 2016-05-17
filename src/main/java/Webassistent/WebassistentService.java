@@ -5,6 +5,7 @@ import com.google.api.server.spi.response.NotFoundException;
 
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.List;
 
 @Api(
     name = "webassistent",
@@ -15,9 +16,21 @@ import java.util.ArrayList;
 )
 public class WebassistentService {
 
+  private List<IService> services = new ArrayList<>();
+  public WebassistentService(){
+    this.services.add(new BundesligaService());
+  }
+
   public Serverresponse getServerresponse(@Named("id") String id) throws NotFoundException {
     try {
-      return new Serverresponse(id);
+      String rVal = "";
+      for (IService service:services) {
+        if (service.hasCommand(id)){
+          rVal =  service.getServiceResponse(id).toString();
+        }
+      }
+      return new Serverresponse(rVal);
+
     } catch (IndexOutOfBoundsException e) {
       throw new NotFoundException("Greeting not found with an index: " + id);
     }

@@ -12,14 +12,14 @@ public enum BundesligaCommand {
     SHOW_TEAM_INFORMATION("Show team information");
 
 
-    private final String userCommandMessage;
+    private final String command;
 
-    BundesligaCommand(String userCommandMessage) {
-        this.userCommandMessage = userCommandMessage;
+    BundesligaCommand(String command) {
+        this.command = command;
     }
 
-    public String getUserCommandMessage(){
-        return userCommandMessage;
+    public String getCommand(){
+        return command;
     }
 
     /**
@@ -29,7 +29,7 @@ public enum BundesligaCommand {
     public static List<String> getAllUserCommandMessages(){
         List<String> listWithCommands = new ArrayList<>();
         for (BundesligaCommand value:BundesligaCommand.values()) {
-            listWithCommands.add(value.getUserCommandMessage());
+            listWithCommands.add(value.getCommand());
         }
         return  listWithCommands;
     }
