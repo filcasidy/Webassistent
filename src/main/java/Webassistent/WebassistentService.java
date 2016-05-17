@@ -15,7 +15,7 @@ import java.util.ArrayList;
 )
 public class WebassistentService {
 
-  public Serverresponse getGreeting(@Named("id") String id) throws NotFoundException {
+  public Serverresponse getServerresponse(@Named("id") String id) throws NotFoundException {
     try {
       return new Serverresponse(id);
     } catch (IndexOutOfBoundsException e) {

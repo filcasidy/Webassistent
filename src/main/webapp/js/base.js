@@ -37,10 +37,10 @@ google.devrel.samples.hello.SCOPES =
  * Prints a greeting to the greeting log.
  * param {Object} greeting Greeting to print.
  */
-google.devrel.samples.hello.print = function(greeting) {
+google.devrel.samples.hello.print = function(response) {
   var element = document.createElement('div');
-  element.innerHTML = greeting.message;
-  document.getElementById('outputLog').appendChild(element);
+  element.innerHTML = response.message;
+  document.getElementById('responseField').appendChild(element);
 };
 
 /**
@@ -48,7 +48,7 @@ google.devrel.samples.hello.print = function(greeting) {
  * @param {string} id ID of the greeting.
  */
 google.devrel.samples.hello.getGreeting = function(id) {
-  gapi.client.webassistent.webassistentService.getGreeting({'id': id}).execute(
+  gapi.client.webassistent.webassistentService.getServerresponse({'id': id}).execute(
       function(resp) {
         if (!resp.code) {
           google.devrel.samples.hello.print(resp);
@@ -62,9 +62,9 @@ google.devrel.samples.hello.getGreeting = function(id) {
 // * Enables the button callbacks in the UI.
 // */
 google.devrel.samples.hello.enableButtons = function() {
-  document.getElementById('getGreeting').onclick = function() {
+  document.getElementById('submitMessage').onclick = function() {
     google.devrel.samples.hello.getGreeting(
-        document.getElementById('id').value);
+        document.getElementById('messageField').value);
   }
   };
 ///**

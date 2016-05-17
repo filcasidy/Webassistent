@@ -7,6 +7,7 @@ public class BundesligaService implements IService{
 
     @Override
     public List<String> getCommands() {
+
         return BundesligaCommand.getAllUserCommandMessages();
     }
 
