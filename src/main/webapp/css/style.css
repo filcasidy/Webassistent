@@ -26,7 +26,6 @@ form {
     overflow: scroll;
 }
 
-.label {
-    width: 90px;
-    display: inline-block;
+#getGreeting {
+        margin-top: 3px;
 }

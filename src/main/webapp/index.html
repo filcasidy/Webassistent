@@ -21,19 +21,22 @@
     </div>
 </div>
 <div class="container">
+    <center>
+        <form action="javascript:void(0);">
+            <h2>Ask a question</h2>
+            <div><input id="id" class="question-input" style="text-align:center;"/></div>
+            <div><input id="getGreeting" type="submit" class="btn btn-small" value="Submit question"></div>
+        </form>
 
-    <div id="outputLog"></div>
-
-    <form action="javascript:void(0);">
-        <h2>Get Greeting</h2>
-        <div><span class="label">Greeting ID: </span><input id="id" /></div>
-        <div><input id="getGreeting" type="submit" class="btn btn-small" value="Submit"></div>
-    </form>
+        <div id="outputLog"></div>
+    </center>
 
     <script type="text/javascript">
         function init() {
             google.devrel.samples.hello.init('//' + window.location.host + '/_ah/api');
         }
+
+
     </script>
     <script type="text/javascript" src="/js/client.js?onload=init"></script>
 </div>

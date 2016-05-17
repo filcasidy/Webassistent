@@ -34,18 +34,11 @@ google.devrel.samples.hello.SCOPES =
     'https://www.googleapis.com/auth/userinfo.email';
 
 /**
- * Whether or not the user is signed in.
- * @type {boolean}
- */
-//google.devrel.samples.hello.signedIn = false;
-
-/**
  * Prints a greeting to the greeting log.
  * param {Object} greeting Greeting to print.
  */
 google.devrel.samples.hello.print = function(greeting) {
   var element = document.createElement('div');
-  element.classList.add('row');
   element.innerHTML = greeting.message;
   document.getElementById('outputLog').appendChild(element);
 };
@@ -64,7 +57,6 @@ google.devrel.samples.hello.getGreeting = function(id) {
         }
       });
 };
-
 
 ///**
 // * Enables the button callbacks in the UI.
