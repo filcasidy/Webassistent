@@ -37,7 +37,7 @@ google.devrel.samples.hello.SCOPES =
  * Whether or not the user is signed in.
  * @type {boolean}
  */
-google.devrel.samples.hello.signedIn = false;
+//google.devrel.samples.hello.signedIn = false;
 
 /**
  * Prints a greeting to the greeting log.
@@ -64,21 +64,7 @@ google.devrel.samples.hello.getGreeting = function(id) {
         }
       });
 };
-//
-///**
-// * Lists greetings via the API.
-// */
-google.devrel.samples.hello.listGreeting = function() {
-  gapi.client.webassistent.greetings.listGreeting().execute(
-      function(resp) {
-        if (!resp.code) {
-          resp.items = resp.items || [];
-          for (var i = 0; i < resp.items.length; i++) {
-            google.devrel.samples.hello.print(resp.items[i]);
-          }
-        }
-      });
-};
+
 
 ///**
 // * Enables the button callbacks in the UI.
@@ -94,14 +80,13 @@ google.devrel.samples.hello.enableButtons = function() {
 // * @param {string} apiRoot Root of the API's path.
 // */
 google.devrel.samples.hello.init = function(apiRoot) {
-  // Loads the OAuth and helloworld APIs asynchronously, and triggers login
+  // Loads the helloworld API asynchronously, and triggers login
   // when they have completed.
+  console.log('ready');
   var apisToLoad;
   var callback = function() {
     if (--apisToLoad == 0) {
       google.devrel.samples.hello.enableButtons();
-      google.devrel.samples.hello.signin(true,
-          google.devrel.samples.hello.userAuthed);
     }
   }
 
