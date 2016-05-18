@@ -1,4 +1,6 @@
-package Webassistent;
+package Webassistent.services;
+
+import Webassistent.JsonConnector;
 
 public class NewsService {
 	private String urlendpoint = "https://gateway-a.watsonplatform.net/calls/data/GetNews";

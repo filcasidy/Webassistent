@@ -1,5 +1,7 @@
 package Webassistent;
 
+import Webassistent.services.BundesligaService;
+import Webassistent.services.IService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.NotFoundException;
 

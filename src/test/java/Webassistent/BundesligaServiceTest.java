@@ -1,6 +1,6 @@
 package Webassistent;
 
-import static org.junit.Assert.*;
+import Webassistent.services.BundesligaService;
 
 public class BundesligaServiceTest {
     BundesligaService bundesligaService = new BundesligaService();

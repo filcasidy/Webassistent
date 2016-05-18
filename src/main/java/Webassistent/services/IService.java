@@ -1,4 +1,4 @@
-package Webassistent;
+package Webassistent.services;
 
 import java.util.List;
 
