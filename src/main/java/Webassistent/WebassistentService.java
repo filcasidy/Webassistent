@@ -34,7 +34,7 @@ public class WebassistentService {
       return new Serverresponse(rVal);
 
     } catch (IndexOutOfBoundsException e) {
-      throw new NotFoundException("Greeting not found with an index: " + id);
+      throw new NotFoundException("Error in Service");
     }
   }
 

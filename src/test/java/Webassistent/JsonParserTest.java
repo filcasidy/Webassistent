@@ -24,7 +24,7 @@ public class JsonParserTest {
         JSONArray list = new JSONArray();
         list.add(obj1);
         list.add(obj2);
-        jsonParser.convertJson(list);
-
+        String tmp= (String)jsonParser.convertJson(list,9999);
+        assertTrue("Undefined Command", tmp.equals("undefined"));
     }
 }
