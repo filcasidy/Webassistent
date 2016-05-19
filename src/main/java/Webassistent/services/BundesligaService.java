@@ -10,13 +10,13 @@ import java.util.List;
 
 public class BundesligaService extends Service {
 
-    private String SHOW_TABLE= "Show actual table information";
-    private String SHOW_RESULTS_FROM_YESTERDAY= "Show results from yesterday";
-    private String SHOW_TEAM_INFORMATION= "Show team information";
+    private String SHOW_TABLE = "Show actual table information";
+    private String SHOW_RESULTS_FROM_YESTERDAY = "Show results from yesterday";
+    private String SHOW_TEAM_INFORMATION = "Show team information";
 
     CommandFactory commandFactory = new CommandFactory();
 
-    public BundesligaService (){
+    public BundesligaService() {
         commandFactory.addCommand(SHOW_TABLE, new ShowTableCommand());
         commandFactory.addCommand(SHOW_RESULTS_FROM_YESTERDAY, new ShowResultsFromYesterdayCommand());
         commandFactory.addCommand(SHOW_TEAM_INFORMATION, new ShowTeamInformationCommand());
@@ -43,11 +43,11 @@ public class BundesligaService extends Service {
     public Object getServiceResponse(String userCommand) {
         if (SHOW_RESULTS_FROM_YESTERDAY.equalsIgnoreCase(userCommand)) {
             return commandFactory.executeCommand(SHOW_RESULTS_FROM_YESTERDAY);
-        }else if (SHOW_TABLE.equalsIgnoreCase(userCommand)){
+        } else if (SHOW_TABLE.equalsIgnoreCase(userCommand)) {
             return commandFactory.executeCommand(SHOW_TABLE);
-        }else if (SHOW_TEAM_INFORMATION.equalsIgnoreCase(userCommand)){
+        } else if (SHOW_TEAM_INFORMATION.equalsIgnoreCase(userCommand)) {
             return commandFactory.executeCommand(SHOW_TEAM_INFORMATION);
-        }else {
+        } else {
             return null;
         }
     }

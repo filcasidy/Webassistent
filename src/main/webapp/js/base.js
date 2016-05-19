@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview
  * Provides methods for the Hello Endpoints sample UI and interaction with the
@@ -37,51 +36,69 @@ google.devrel.samples.hello.SCOPES =
  * Prints a greeting to the greeting log.
  * param {Object} greeting Greeting to print.
  */
-google.devrel.samples.hello.print = function(response) {
-  var element = document.createElement('div');
-  element.innerHTML = response.message;
-  document.getElementById('responseField').appendChild(element);
+google.devrel.samples.hello.print = function (response) {
+    var element = document.createElement('div');
+    element.innerHTML = response.message;
+    document.getElementById('responseField').appendChild(element);
 };
+
+/**
+ * Fills the suggestions with commands.
+ */
+google.devrel.fillSuggestions = function () {
+    gapi.client.webassistent.webassistentService.getSuggestions().execute(
+        function (commands) {
+            if (!commands.code) {
+                for (var i = 0; i < commands.items.length; i++) {
+                    var element = document.createElement('option');
+                    element.setAttribute('value', commands.items[i].message);
+                    document.getElementById('suggestions').appendChild(element);
+                }
+            }
+        });
+};
+
 
 /**
  * Gets a numbered greeting via the API.
  * @param {string} id ID of the greeting.
  */
-google.devrel.samples.hello.getGreeting = function(id) {
-  gapi.client.webassistent.webassistentService.getServerresponse({'id': id}).execute(
-      function(resp) {
-        if (!resp.code) {
-          google.devrel.samples.hello.print(resp);
-        } else {
-          window.alert(resp.message);
-        }
-      });
+google.devrel.samples.hello.getGreeting = function (id) {
+    gapi.client.webassistent.webassistentService.getServerresponse({'id': id}).execute(
+        function (resp) {
+            if (!resp.code) {
+                google.devrel.samples.hello.print(resp);
+            } else {
+                window.alert(resp.message);
+            }
+        });
 };
 
-///**
-// * Enables the button callbacks in the UI.
-// */
-google.devrel.samples.hello.enableButtons = function() {
-  document.getElementById('submitMessage').onclick = function() {
-    google.devrel.samples.hello.getGreeting(
-        document.getElementById('messageField').value);
-  }
-  };
+/**
+ * Enables the button callbacks in the UI.
+ */
+google.devrel.samples.hello.enableButtons = function () {
+    document.getElementById('submitMessage').onclick = function () {
+        google.devrel.samples.hello.getGreeting(
+            document.getElementById('messageField').value);
+    }
+};
 ///**
 // * Initializes the application.
 // * @param {string} apiRoot Root of the API's path.
 // */
-google.devrel.samples.hello.init = function(apiRoot) {
-  // Loads the helloworld API asynchronously, and triggers login
-  // when they have completed.
-  console.log('ready');
-  var apisToLoad;
-  var callback = function() {
-    if (--apisToLoad == 0) {
-      google.devrel.samples.hello.enableButtons();
-    }
-  }
+google.devrel.samples.hello.init = function (apiRoot) {
+    // Loads the helloworld API asynchronously, and triggers login
+    // when they have completed.
+    console.log('ready');
+    var apisToLoad;
+    var callback = function () {
+        if (--apisToLoad == 0) {
+            google.devrel.samples.hello.enableButtons();
+            google.devrel.fillSuggestions();
+        }
+    };
 
-  apisToLoad = 1; // must match number of calls to gapi.client.load()
-  gapi.client.load('webassistent', 'v1', callback, apiRoot);
+    apisToLoad = 1; // must match number of calls to gapi.client.load()
+    gapi.client.load('webassistent', 'v1', callback, apiRoot);
 };

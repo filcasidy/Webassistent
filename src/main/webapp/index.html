@@ -21,21 +21,26 @@
     </div>
 </div>
 <div class="container">
-    <center>
-        <form action="javascript:void(0);">
+    <div style="text-align: center;">
+        <form action="javascript:void(0);" class="form-search">
             <h2>Ask a question!</h2>
-            <div><input id="messageField" class="question-input" style="text-align:center;"/></div>
-            <div><input id="submitMessage" type="submit" class="btn btn-small" value="Submit question"></div>
+            <div class="input-append">
+            <input id="messageField" placeholder="Type in your command..." class="input-xxlarge" type="text" autocomplete="on" list="suggestions"/>
+            <input id="submitMessage" type="submit" class="btn" value="Submit question">
+            </div>
         </form>
 
         <div id="responseField"></div>
-    </center>
+    </div>
+
+    <datalist id="suggestions" >
+
+    </datalist>
 
     <script type="text/javascript">
         function init() {
             google.devrel.samples.hello.init('//' + window.location.host + '/_ah/api');
         }
-
     </script>
     <script type="text/javascript" src="/js/client.js?onload=init"></script>
 </div>

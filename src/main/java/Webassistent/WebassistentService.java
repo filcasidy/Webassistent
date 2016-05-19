@@ -10,32 +10,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Api(
-    name = "webassistent",
-    version = "v1",
-    scopes = {Constants.EMAIL_SCOPE},
-    clientIds = {Constants.WEB_CLIENT_ID, Constants.ANDROID_CLIENT_ID, Constants.IOS_CLIENT_ID},
-    audiences = {Constants.ANDROID_AUDIENCE}
+        name = "webassistent",
+        version = "v1",
+        scopes = {Constants.EMAIL_SCOPE},
+        clientIds = {Constants.WEB_CLIENT_ID, Constants.ANDROID_CLIENT_ID, Constants.IOS_CLIENT_ID},
+        audiences = {Constants.ANDROID_AUDIENCE}
 )
 public class WebassistentService {
 
-  private List<IService> services = new ArrayList<>();
-  public WebassistentService(){
-    this.services.add(new BundesligaService());
-  }
+    private List<IService> services = new ArrayList<>();
+    public static ArrayList<Serverresponse> suggestions = new ArrayList<>();
 
-  public Serverresponse getServerresponse(@Named("id") String id) throws NotFoundException {
-    try {
-      String rVal = "";
-      for (IService service:services) {
-        if (service.hasCommand(id)){
-          rVal =  service.getServiceResponse(id).toString();
+    public WebassistentService() {
+        this.services.add(new BundesligaService());
+        for (IService service : services) {
+            for (String command : service.getCommands())
+                suggestions.add(new Serverresponse(command));
         }
-      }
-      return new Serverresponse(rVal);
-
-    } catch (IndexOutOfBoundsException e) {
-      throw new NotFoundException("Error in Service");
     }
-  }
+
+    public Serverresponse getServerresponse(@Named("id") String id) throws NotFoundException {
+        try {
+            String rVal = "";
+            for (IService service : services) {
+                if (service.hasCommand(id)) {
+                    rVal = service.getServiceResponse(id).toString();
+                }
+            }
+            return new Serverresponse(rVal);
+
+        } catch (IndexOutOfBoundsException e) {
+            throw new NotFoundException("Error in Service");
+        }
+    }
+
+    /**
+     * Gets all sugestions (commands).
+     *
+     * @return arraylist with all sugestions (commands)
+     */
+    public ArrayList<Serverresponse> getSuggestions() {
+        return suggestions;
+    }
 
 }

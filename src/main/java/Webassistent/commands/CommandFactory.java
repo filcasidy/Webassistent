@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CommandFactory {
 
-    private final HashMap<String, ICommand>	commands;
+    private final HashMap<String, ICommand> commands;
 
     public CommandFactory() {
         commands = new HashMap<>();
@@ -26,7 +26,7 @@ public class CommandFactory {
 
     public List<String> getAllCommands() {
         List<String> rVal = new ArrayList<>();
-        for (Map.Entry<String, ICommand> command: commands.entrySet()) {
+        for (Map.Entry<String, ICommand> command : commands.entrySet()) {
             rVal.add(command.getKey());
         }
         return rVal;
