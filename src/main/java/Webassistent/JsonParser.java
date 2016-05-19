@@ -11,7 +11,6 @@ public class JsonParser {
 
     public Object convertJson(JSONArray jsonArrayFromQuery, int type) {
 
-        System.out.println("Type" + type + " size" + jsonArrayFromQuery.size());
         long points1 = -1;
         long points2 = -1;
 
@@ -19,7 +18,8 @@ public class JsonParser {
             case 0:
                 String name1 = "";
                 String name2 = "";
-                List<String> response= new LinkedList<String>();
+                List<String> response = new LinkedList<String>();
+                response.add("<--- Answer from Webassistent --> <br> <br> <br>");
                 long id = -1;
                 int counter = 0;
 
@@ -46,11 +46,10 @@ public class JsonParser {
 
                     response.add(name1 + " - " + name2 + "\t " + points1 + " : " + points2 + "<br>");
 
-                    for(int z=0; z<response.size();z++) {
-                        String tmp = response.get(z).replace(',', ' ');
-                        tmp = tmp.replace('[' , ' ');
-                        response.set(z, tmp);
-                    }
+                    //for (int z = 0; z < response.size(); z++) {
+                    //    String tmp = response.get(z).substring(1);
+                    //    response.set(z, tmp);
+                    //}
                 }
 
                 return response;
