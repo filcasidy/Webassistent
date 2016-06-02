@@ -4,6 +4,7 @@ import Webassistent.services.BundesligaService;
 import Webassistent.services.IService;
 import Webassistent.services.NewsService;
 
+import Webassistent.services.WeatherService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.response.NotFoundException;
 
@@ -25,6 +26,7 @@ public class WebassistentService {
 
     public WebassistentService() {
         this.services.add(new BundesligaService());
+        this.services.add(new WeatherService());
         this.services.add(new NewsService());
         for (IService service : services) {
             for (String command : service.getCommands())

@@ -1,29 +1,44 @@
 package Webassistent.services;
 
+import Webassistent.commands.CommandFactory;
+import Webassistent.commands.weather.ShowTodayWeatherCommand;
 import Webassistent.services.IService;
 
 import java.util.List;
 
 public class WeatherService implements IService {
+
+    private String SHOW_TODAY_WEATHER = "Show today weather";
+
+
+    CommandFactory commandFactory = new CommandFactory();
+
+    public WeatherService() {
+        commandFactory.addCommand(SHOW_TODAY_WEATHER, new ShowTodayWeatherCommand());
+    }
+
     @Override
     public List<String> getCommands() {
-        return null;
+        return commandFactory.getAllCommands();
     }
 
     @Override
     public boolean hasCommand(String userCommand) {
-        return false;
+        boolean rVal = false;
+        for (String command : getCommands()) {
+            if (command.equalsIgnoreCase(userCommand)) {
+                rVal = true;
+            }
+        }
+        return rVal;
     }
 
     @Override
     public Object getServiceResponse(String userCommand) {
-//        if (BundesligaCommand.SHOW_RESULTS_FROM_YESTERDAY.getCommand().equalsIgnoreCase(userCommand)) {
-//            return "Show results";
-//        }else if (BundesligaCommand.SHOW_TABLE.getCommand().equalsIgnoreCase(userCommand)){
-//            return "Show table";
-//        }else if (BundesligaCommand.SHOW_TEAM_INFORMATION.getCommand().equalsIgnoreCase(userCommand)){
-//            return "Show team";
-//        }else {
+        if (SHOW_TODAY_WEATHER.equalsIgnoreCase(userCommand)) {
+            return commandFactory.executeCommand(SHOW_TODAY_WEATHER);
+        }  else {
             return null;
+        }
     }
 }
