@@ -1,41 +1,76 @@
 package Webassistent;
 
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.*;
 import java.net.URL;
-import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.util.Iterator;
+import java.util.Map;
 
 public class JsonConnector {
 
-    public JSONArray getJsonFromURL(String urlString) {
-        JSONArray jsonArray = null;
-        JSONParser parser = new JSONParser();
-        String inputLine;
-
+    /**
+     * Gets the {@link JSONObject} form the given url.
+     *
+     * @param url to the data (REST)
+     * @return JSONObject for further work
+     */
+    public JSONObject readJsonFromUrl(String url) {
+        InputStream is = null;
         try {
-            URL  url = new URL(urlString); // URL to Parse
-            URLConnection urlConnection = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-
-            while ((inputLine = in.readLine()) != null) {
-                jsonArray = (JSONArray) parser.parse(inputLine);
+            is = new URL(url).openStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONObject json = new JSONObject(jsonText);
+            is.close();
+            return json;
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                is.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
-
-        return jsonArray;
+        return null;
     }
+
+    private String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Parses the {@link JSONObject} into a map.
+     * @param json the {@link JSONObject}
+     * @param out map which will be filled
+     * @return a filled map parsed from the json object
+     * @throws JSONException
+     */
+    public Map<String, String> parse(JSONObject json, Map<String, String> out) throws JSONException {
+        Iterator<String> keys = json.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            String val = null;
+            try {
+                JSONObject value = json.getJSONObject(key);
+                parse(value, out);
+            } catch (Exception e) {
+                val = json.get(key).toString();
+            }
+
+            if (val != null) {
+                out.put(key, val);
+            }
+        }
+        return out;
+    }
+
 }
