@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,47 +20,42 @@ import org.apache.commons.lang3.StringUtils;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 
-public class NewsService {
-	private String urlendpoint = "https://gateway-a.watsonplatform.net/calls/data/GetNews";
-	private String apikey = "?apikey=8c616a12601d88cbc6db0688ea4d65bf9ae267f0";
+import Webassistent.commands.CommandFactory;
+import Webassistent.commands.bundesliga.ShowTableCommand;
+import Webassistent.commands.news.ShowTestNewsCommand;
 
-	public void News() {
-		String outputmode = "&outputMode=json";
-		String period = "&start=now-1d&end=now";
-		String para = "&q.enriched.url.text=baseball";
-		String re = "&return=enriched.url.text,original.url";
+public class NewsService extends Service {
 
-		System.out.println(urlendpoint + apikey + outputmode + period + para + re);
-		
-		AlchemyDataNews service = new AlchemyDataNews();
-//	    service.setApiKey(apikey);
-//	    
-//	    Date n = new Date();
-//	    Long d2 = n.getTime()/1000;
-//	    
-//	    int a = n.getMonth();
-//	    n.setMonth(a-1);
-//	    Long d1 = n.getTime()/1000;
-//
-//	    Map<String, Object> params = new HashMap<String, Object>();
-//
-//	    String[] fields =
-//	        new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
-//	            "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
-//	            "enriched.url.enrichedTitle.docSentiment"};
-//	    params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
-//	    params.put(AlchemyDataNews.START, d1);
-//	    params.put(AlchemyDataNews.END, d2);
-//	    params.put(AlchemyDataNews.COUNT, 7);
-//
-//	    //Query on adjacent nested fields: 
-//	    params.put("q.enriched.url.enrichedTitle.entities.entity", "|text=IBM,type=company|");
-//	    //params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");
-//	    //params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", "technology and computing");
-//
-//	    DocumentsResult result = service.getNewsDocuments(params).execute();
-//
-//	    System.out.println(result);
+	private String SHOW_NEWS = "Show test news";
 
+	CommandFactory commandFactory = new CommandFactory();
+
+	public NewsService() {
+		commandFactory.addCommand(SHOW_NEWS, new ShowTestNewsCommand());
+	}
+
+	@Override
+	public List<String> getCommands() {
+		return commandFactory.getAllCommands();
+	}
+
+	@Override
+	public boolean hasCommand(String userCommand) {
+		boolean rVal = false;
+		for (String command : getCommands()) {
+			if (command.equalsIgnoreCase(userCommand)) {
+				rVal = true;
+			}
+		}
+		return rVal;
+	}
+
+	@Override
+	public Object getServiceResponse(String userCommand) {
+		if (SHOW_NEWS.equalsIgnoreCase(userCommand)) {
+			return commandFactory.executeCommand(SHOW_NEWS);
+		} else {
+			return null;
+		}
 	}
 }
