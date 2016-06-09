@@ -1,8 +1,7 @@
 package Webassistent;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import static org.junit.Assert.*;
 
@@ -21,9 +20,8 @@ public class JsonParserTest {
         obj2.put("id", 2);
         obj2.put("message" , "mySecondMessage");
 
-        JSONArray list = new JSONArray();
-        list.add(obj1);
-        list.add(obj2);
+        JSONObject list = new JSONObject();
+        list.put("key" , "1");
         String tmp= (String)jsonParser.convertJson(list,9999);
         assertTrue("Undefined Command", tmp.equals("undefined"));
     }

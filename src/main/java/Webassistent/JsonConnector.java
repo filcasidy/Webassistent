@@ -24,6 +24,17 @@ public class JsonConnector {
             is = new URL(url).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
+
+            //IF the Json has [] as first and last char, delete it
+            if(jsonText.charAt(0)=='[')
+            {
+                StringBuilder sb = new StringBuilder(jsonText);
+                sb.deleteCharAt(0);
+                sb.deleteCharAt((sb.length()-1));
+                jsonText=sb.toString();
+                System.out.println(jsonText);
+            }
+
             JSONObject json = new JSONObject(jsonText);
             is.close();
             return json;

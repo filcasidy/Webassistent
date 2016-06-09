@@ -1,6 +1,6 @@
 package Webassistent;
 
-import org.json.simple.JSONArray;
+import org.json.JSONObject;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ public class JsonConnectorTest {
 
     @org.junit.Test
     public void test1() throws Exception {
-//        JSONArray test= jsonConnector.getJsonFromURL("http://carlofontanos.com/api/tutorials.php?data=all" );
-//        assertTrue("getJsonfromURL.Error", test.size()!=0);
+        JSONObject test= jsonConnector.readJsonFromUrl("http://carlofontanos.com/api/tutorials.php?data=all" );
+        assertTrue("getJsonfromURL.Error", test.length()!=0);
     }
 }
