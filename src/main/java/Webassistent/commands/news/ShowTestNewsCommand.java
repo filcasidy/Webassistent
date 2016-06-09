@@ -4,17 +4,24 @@ import org.json.JSONObject;
 import Webassistent.JsonConnector;
 import Webassistent.commands.ICommand;
 
+import java.util.LinkedList;
+
 public class ShowTestNewsCommand implements ICommand {
 
+	@Override
+	public Object execute(){return null;}
+	/*
 	private String urlendpoint = "https://gateway-a.watsonplatform.net/calls/data/GetNews";
 	private String apikey = "?apikey=8c616a12601d88cbc6db0688ea4d65bf9ae267f0";
 	private String outputmode = "&outputMode=json";
 
 	@Override
 	public Object execute() {
+
 		JsonConnector connector = new JsonConnector();
+
 		System.out.println(getNews("Bremen"));
-		JSONObject object = connector.readJsonFromUrl(getNews("Bremen"));
+		JSONObject object = connector.readJsonFromUrl(getNews("Bremen"), new LinkedList<String>());
 		System.out.println(object);
 		if (object.get("status").equals("OK")) {
 
@@ -35,6 +42,7 @@ public class ShowTestNewsCommand implements ICommand {
 		System.out.println(object.get("status"));
 		return object;
 
+
 	}
 
 	public String getNews(String thema) {
@@ -49,5 +57,5 @@ public class ShowTestNewsCommand implements ICommand {
 		return urlendpoint + apikey + outputmode + period + para + re;
 
 	}
-
+	*/
 }

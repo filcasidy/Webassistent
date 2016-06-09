@@ -28,6 +28,7 @@ public class WebassistentService {
         this.services.add(new BundesligaService());
         this.services.add(new WeatherService());
         this.services.add(new NewsService());
+
         for (IService service : services) {
             for (String command : service.getCommands())
                 suggestions.add(new Serverresponse(command));
