@@ -2,7 +2,6 @@ package Webassistent.services;
 
 import Webassistent.commands.CommandFactory;
 import Webassistent.commands.weather.ShowTodayWeatherCommand;
-import Webassistent.services.IService;
 
 import java.util.List;
 

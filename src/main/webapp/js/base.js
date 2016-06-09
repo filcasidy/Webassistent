@@ -37,6 +37,10 @@ google.devrel.samples.hello.SCOPES =
  * param {Object} greeting Greeting to print.
  */
 google.devrel.samples.hello.print = function (response) {
+    var responseFieldNode = document.getElementById('responseField');
+    while (responseFieldNode.firstChild) {
+        responseFieldNode.removeChild(responseFieldNode.firstChild);
+    }
     var element = document.createElement('div');
     element.innerHTML = response.message;
     document.getElementById('responseField').appendChild(element);
@@ -83,10 +87,10 @@ google.devrel.samples.hello.enableButtons = function () {
             document.getElementById('messageField').value);
     }
 };
-///**
-// * Initializes the application.
-// * @param {string} apiRoot Root of the API's path.
-// */
+/**
+* Initializes the application.
+* @param {string} apiRoot Root of the API's path.
+*/
 google.devrel.samples.hello.init = function (apiRoot) {
     // Loads the helloworld API asynchronously, and triggers login
     // when they have completed.
