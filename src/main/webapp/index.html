@@ -14,34 +14,38 @@
     <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css">
     <link type="text/css" rel="stylesheet" href="/css/style.css">
     <link type="text/css" rel="stylesheet" href="/css/animate.css">
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css">
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand pull-right" href="#">Welcome to Webassistent</a>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Welcome to Webassistent</a>
         </div>
     </div>
-</div>
-<div class="container">
-    <div style="text-align: center;">
-        <form action="javascript:void(0);" class="form-search">
-            <h2>Ask a question!</h2>
-            <div class="input-append">
-            <input id="messageField" placeholder="Type in your command..." class="input-xxlarge" type="text" autocomplete="on" list="suggestions"/>
-            <input id="submitMessage" type="submit" class="btn" value="Submit question">
-            </div>
-        </form>
+</nav>
 
-        <div id="responseField"></div>
+<div class="container">
+
+    <div style="text-align: center;">
+        <h1>Ask a question!</h1>
     </div>
 
-    <datalist id="suggestions" >
+    <div class="col-lg-12">
+        <div class="input-group">
+            <input id="messageField" placeholder="Type in your command..." class="form-control" type="text"
+                   autocomplete="on" list="suggestions"/>
+                <span class="input-group-btn">
+                    <button id="submitMessage" class="btn btn-default" type="button">Submit question</button>
+                </span>
+        </div>
+
+        <div style="text-align: center;">
+            <div id="responseField"></div>
+        </div>
+    </div>
+
+    <datalist id="suggestions">
 
     </datalist>
 

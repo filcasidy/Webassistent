@@ -10,7 +10,5 @@ public class JsonConnectorTest {
 
     @org.junit.Test
     public void test1() throws Exception {
-        JSONObject test= jsonConnector.readJsonFromUrl("http://carlofontanos.com/api/tutorials.php?data=all" );
-        assertTrue("getJsonfromURL.Error", test.length()!=0);
     }
 }
