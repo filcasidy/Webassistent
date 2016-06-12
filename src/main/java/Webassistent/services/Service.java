@@ -17,7 +17,7 @@ public class Service implements IService {
     }
 
     @Override
-    public Object getServiceResponse(String userCommand) {
+    public Object getServiceResponse(String userCommand, List<String> para) {
         return null;
     }
 }

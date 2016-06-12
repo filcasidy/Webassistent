@@ -17,9 +17,9 @@ public class CommandFactory {
         commands.put(name, command);
     }
 
-    public Object executeCommand(String name) {
+    public Object executeCommand(String name,List<String> para) {
         if (commands.containsKey(name)) {
-            return commands.get(name).execute();
+            return commands.get(name).execute(para);
         }
         return null;
     }

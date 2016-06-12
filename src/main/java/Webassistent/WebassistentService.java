@@ -10,6 +10,7 @@ import com.google.api.server.spi.response.NotFoundException;
 
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Api(
@@ -36,11 +37,16 @@ public class WebassistentService {
     }
 
     public Serverresponse getServerresponse(@Named("id") String id) throws NotFoundException {
+    	String[] arr = id.split(",");
+    	List<String> para = new LinkedList<String>();
+    	for (int i = 1; i < arr.length; i++){
+			 para.add(arr[i]);
+		 }
         try {
             String rVal = "";
             for (IService service : services) {
-                if (service.hasCommand(id)) {
-                    rVal = service.getServiceResponse(id).toString();
+                if (service.hasCommand(arr[0])) {
+                    rVal = service.getServiceResponse(id, para).toString();
                 }
             }
             return new Serverresponse(rVal);
