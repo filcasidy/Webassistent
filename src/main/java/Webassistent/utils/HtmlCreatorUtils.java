@@ -61,13 +61,53 @@ public class HtmlCreatorUtils {
         return createTable(headings, rowsWithEntries, "", 100);
     }
 
-    public static Document createPanel(String title, String text, String url){
+    /**
+     * Creates a simple panel with title and text.
+     *
+     * @param title title of the panel
+     * @param text  text in the panel
+     * @return the html object as document
+     */
+    public static Document createPanel(String title, String text) {
         Document doc = Document.createShell("");
         Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
+        panel.attr("id", "panel");
         Element panelHeading = panel.appendElement("div").addClass("panel-heading");
         panelHeading.appendElement("h1").addClass("panel-title").text(title);
-        panel.appendElement("div").addClass("panel-body").text(text);
-        panel.appendElement("div").addClass("panel-footer").appendElement("a").attr("href",url).text("Link");
-        return  doc;
+        Element panelBody = panel.appendElement("div").addClass("panel-body").text(text);
+        panelBody.attr("id", "panelBody");
+        return doc;
+    }
+
+    /**
+     * Creates a simple panel with title,footer and text.
+     *
+     * @param title title of the panel
+     * @param text  text in the panel
+     * @param url   the url which will be added in the footer
+     * @return the html object as document
+     */
+    public static Document createPanel(String title, String text, String url) {
+        Document doc = createPanel(title, text);
+        doc.getElementById("panel").appendElement("div").addClass("panel-footer").appendElement("a").attr("href", url).text("Link");
+        return doc;
+    }
+
+
+    /**
+     * Creates a simple panel with title, text and a list of points.
+     *
+     * @param title        title of the panel
+     * @param text         text in the panel
+     * @param points list with points
+     * @return the html object as document
+     */
+    public static Document createPanelWithListOfPoints(String title, String text, List<String> points) {
+        Document doc = createPanel(title, text);
+        Element bulletPointsTable = doc.getElementById("panelBody").appendElement("dl");
+        for (String command : points) {
+            bulletPointsTable.appendElement("dd").attr("style", "font-weight: bold").text(command);
+        }
+        return doc;
     }
 }
