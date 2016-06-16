@@ -25,3 +25,8 @@ form {
     margin-top: 10px;
     overflow: scroll;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
