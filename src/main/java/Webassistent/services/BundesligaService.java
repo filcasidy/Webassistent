@@ -38,13 +38,13 @@ public class BundesligaService extends Service {
     }
 
     @Override
-    public Object getServiceResponse(String userCommand) {
+    public Object getServiceResponse(String userCommand, List<String> para) {
         if (SHOW_RESULTS.equalsIgnoreCase(userCommand)) {
-            return commandFactory.executeCommand(SHOW_RESULTS);
+            return commandFactory.executeCommand(SHOW_RESULTS, para);
         } else if (SHOW_TABLE.equalsIgnoreCase(userCommand)) {
-            return commandFactory.executeCommand(SHOW_TABLE);
+            return commandFactory.executeCommand(SHOW_TABLE, para);
         } else if (SHOW_TEAM_INFORMATION.equalsIgnoreCase(userCommand)) {
-            return commandFactory.executeCommand(SHOW_TEAM_INFORMATION);
+            return commandFactory.executeCommand(SHOW_TEAM_INFORMATION, para);
         } else {
             return null;
         }

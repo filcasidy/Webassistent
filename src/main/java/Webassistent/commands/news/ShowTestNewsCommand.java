@@ -20,7 +20,15 @@ public class ShowTestNewsCommand implements ICommand {
 		for (int i = 0; i < para.size(); i++) {
 			System.out.println(para.get(i));
 		}
-
+//		List<String> jsons = new LinkedList<String>();
+//		jsons.add("status");
+//		jsons.add("result");
+//		jsons.add("docs");
+//		List<String> ret = connector.readJsonFromUrl(getNews("Bremen"), jsons);
+//		System.out.println(getNews("Bremen"));
+//		for (int i = 0; i< ret.size(); i++){
+//			System.out.println(ret.get(i));
+//		}
 		// System.out.println(getNews("Bremen"));
 		// JSONObject object = connector.readJsonFromUrl(getNews("Bremen"), new
 		// LinkedList<String>());

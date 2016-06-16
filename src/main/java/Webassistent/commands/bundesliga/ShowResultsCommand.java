@@ -10,10 +10,11 @@ import java.util.List;
 public class ShowResultsCommand implements ICommand {
 
     @Override
-    public Object execute() {
+    public Object execute(List<String> para) {
         List<String> keyList = new LinkedList<String>();
         keyList.add("MatchID");
         JsonConnector connector = new JsonConnector();
         return connector.readJsonFromUrl("http://www.openligadb.de/api/getmatchdata/bl1/2015/34", keyList);
     }
+
 }
