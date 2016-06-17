@@ -17,7 +17,6 @@ public class ShowTodayWeatherCommand implements ICommand {
         JsonConnector connector = new JsonConnector();
         JSONObject jsonObject = connector.readJsonFromUrl(url);
         int id = Integer.valueOf(connector.getJson(jsonObject, "query.results.channel.item.condition.code").toString());
-        System.err.println();
         Document document = HtmlCreatorUtils.createPanel("TITEL");
         document.getElementById("panelBody").appendElement("i").addClass("wi " + WeatherUtils.getClassAttributeFrom(id)).attr("style","padding-bottom: 10px;font-size: 60px");
         return document;

@@ -61,6 +61,18 @@ public class HtmlCreatorUtils {
         return createTable(headings, rowsWithEntries, "", 100);
     }
 
+
+    public static  Document createPanel(String title){
+        Document doc = Document.createShell("");
+        Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
+        panel.attr("id", "panel");
+        Element panelHeading = panel.appendElement("div").addClass("panel-heading");
+        panelHeading.appendElement("h1").addClass("panel-title").text(title);
+        Element panelBody = panel.appendElement("div").addClass("panel-body");
+        panelBody.attr("id", "panelBody");
+        return doc;
+    }
+
     /**
      * Creates a simple panel with title and text.
      *
@@ -69,13 +81,8 @@ public class HtmlCreatorUtils {
      * @return the html object as document
      */
     public static Document createPanel(String title, String text) {
-        Document doc = Document.createShell("");
-        Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
-        panel.attr("id", "panel");
-        Element panelHeading = panel.appendElement("div").addClass("panel-heading");
-        panelHeading.appendElement("h1").addClass("panel-title").text(title);
-        Element panelBody = panel.appendElement("div").addClass("panel-body").text(text);
-        panelBody.attr("id", "panelBody");
+        Document doc = createPanel(title);
+        doc.getElementById("panelBody").text(text);
         return doc;
     }
 
