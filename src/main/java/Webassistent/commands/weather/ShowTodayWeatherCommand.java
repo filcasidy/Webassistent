@@ -3,7 +3,8 @@ package Webassistent.commands.weather;
 import Webassistent.JsonConnector;
 import Webassistent.commands.ICommand;
 import Webassistent.utils.HtmlCreatorUtils;
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import org.json.JSONObject;
+import org.jsoup.nodes.Document;
 
 import java.util.List;
 
@@ -13,25 +14,13 @@ public class ShowTodayWeatherCommand implements ICommand {
 
     @Override
     public Object execute(List<String> para) {
-//        JsonConnector connector = new JsonConnector();
-//        List<String> headings = Lists.newArrayList();
-//        headings.add("Tag");
-//        headings.add("Wetter");
-//
-//        List<String> etries1 = Lists.newArrayList();
-//        etries1.add("Montag");
-//        etries1.add("Sonnig");
-//
-//        List<String> etries2 = Lists.newArrayList();
-//        etries2.add("Mittwoch");
-//        etries2.add("Regen");
-//        List<List<String>> rowsEntr = Lists.newArrayList();
-//        rowsEntr.add(etries1);
-//        rowsEntr.add(etries2);
-//
-//
-//        return HtmlCreatorUtils.createTable(headings,rowsEntr,"Wetter für 2 Tage");
+        JsonConnector connector = new JsonConnector();
+        JSONObject jsonObject = connector.readJsonFromUrl(url);
+        int id = Integer.valueOf(connector.getJson(jsonObject, "query.results.channel.item.condition.code").toString());
+        System.err.println();
+        Document document = HtmlCreatorUtils.createPanel("TITEL");
+        document.getElementById("panelBody").appendElement("i").addClass("wi " + WeatherUtils.getClassAttributeFrom(id)).attr("style","padding-bottom: 10px;font-size: 60px");
+        return document;
 
-        return HtmlCreatorUtils.createPanel("TITEL","SSuper viel text","http://www.w3schools.com/html/html_links.asp");
     }
 }
