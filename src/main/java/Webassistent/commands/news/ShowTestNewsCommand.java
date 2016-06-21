@@ -1,9 +1,13 @@
 package Webassistent.commands.news;
 
 import Webassistent.commands.ICommand;
+import Webassistent.utils.HtmlCreatorUtils;
 import Webassistent.utils.JsonUtils;
 
 import java.util.List;
+
+import org.json.JSONObject;
+import org.jsoup.nodes.Document;
 
 public class ShowTestNewsCommand implements ICommand {
 
@@ -15,52 +19,41 @@ public class ShowTestNewsCommand implements ICommand {
 	public Object execute(List<String> parameter) {
 
 		JsonUtils connector = new JsonUtils();
-		for (int i = 0; i < parameter.size(); i++) {
-			System.out.println(parameter.get(i));
+		JSONObject mainobject = connector.readJsonFromUrlToJsonObject(getNews(parameter.get(parameter.size() - 1)));
+		System.out.println(getNews(parameter.get(parameter.size() - 1)));
+
+		System.out.println(mainobject);
+		if (mainobject.get("status").equals("OK")) {
+			JSONObject result = mainobject.getJSONObject("result");
+			String title = "Nothing found", text = null, url = null;
+			Document document = null;
+			if (result.has("docs")) {
+				org.json.JSONArray docs = result.getJSONArray("docs");
+
+				for (int i = 0; i < docs.length(); i++) {
+					JSONObject jsonObj = docs.getJSONObject(i);
+					title = connector.getJson(jsonObj, "source.enriched.url.title").toString();
+					text = connector.getJson(jsonObj, "source.enriched.url.text").toString();
+					url = connector.getJson(jsonObj, "source.original.url").toString();
+					document = HtmlCreatorUtils.createPanel(title, text, url);
+				}
+
+			}
+			return document;
+		} else {
+			if (mainobject.get("status").equals("ERROR")) {
+				return mainobject.getString("status") + ":" + mainobject.getString("statusInfo");
+			}
 		}
-//		List<String> jsons = new LinkedList<String>();
-//		jsons.add("status");
-//		jsons.add("result");
-//		jsons.add("docs");
-//		List<String> ret = connector.readJsonFromUrlToJsonObject(getNews("Bremen"), jsons);
-//		System.out.println(getNews("Bremen"));
-//		for (int i = 0; i< ret.size(); i++){
-//			System.out.println(ret.get(i));
-//		}
-		// System.out.println(getNews("Bremen"));
-		// JSONObject object = connector.readJsonFromUrlToJsonObject(getNews("Bremen"), new
-		// LinkedList<String>());
-		// System.out.println(object);
-		// if (object.get("status").equals("OK")) {
-		//
-		// JSONObject result = object.getJSONObject("result");
-		//
-		// org.json.JSONArray docs = result.getJSONArray("docs");
-		// for (int i = 0; i < docs.length(); i++) {
-		// JSONObject jsonObj = docs.getJSONObject(i);
-		// System.out.println(jsonObj);
-		// }
-		//
-		// return result;
-		// } else {
-		// if (object.get("status").equals("ERROR")) {
-		// return object.getString("status") + ":" +
-		// object.getString("statusInfo");
-		// }
-		// }
-		// System.out.println(object.get("status"));
-		return "start";
+		return mainobject;
 
 	}
 
 	public String getNews(String thema) {
 
-		String period = "&start=now-6h&end=now";
-		String para = "&q.enriched.url.text=" + thema;
-		String re = "&return=enriched.url.text,original.url";
-
-		// System.out.println(urlendpoint + apikey + outputmode + period + para
-		// + re);
+		String period = "&start=now-6d&end=now&count=10";
+		String para = "&q.enriched.url.title=" + thema;
+		String re = "&return=enriched.url.text,original.url,enriched.url.title";
 
 		return urlendpoint + apikey + outputmode + period + para + re;
 
