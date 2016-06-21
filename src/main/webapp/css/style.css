@@ -24,3 +24,15 @@ form {
     float: none;
     margin: 0 auto;
 }
+
+.table th {
+    text-align: center;
+}
+
+.table tr {
+    text-align: center;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}

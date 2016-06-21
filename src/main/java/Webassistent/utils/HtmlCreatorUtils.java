@@ -17,14 +17,19 @@ public class HtmlCreatorUtils {
      * @param rowsWithEntries list with lists. Each list contains the row entries
      * @param tableHeader     the header of the table
      * @param tableWidth      the width of the table in percent
+     * @param borderless      should the table be borderless
      * @return the html object as document
      */
-    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, String tableHeader, int tableWidth) {
+    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, String tableHeader, int tableWidth, boolean borderless) {
         Document doc = Document.createShell("");
         if (!tableHeader.isEmpty()) {
             doc.body().appendElement("h1").addClass("animated fadeInDown").text(tableHeader);
         }
-        Element table = doc.body().appendElement("table").addClass("table table-bordered animated fadeInDown").attr("style", "width:" + tableWidth + "%");
+        Element table = doc.body().appendElement("table").addClass("table animated fadeInDown").attr("style",
+                "width:" + tableWidth + "% ; table-layout: fixed");
+        if (!borderless) {
+            table.addClass("table-bordered");
+        }
         Element tableHeaderBeginning = table.appendElement("tr");
         for (String header : headings) {
             tableHeaderBeginning.appendElement("th").text(header);
@@ -44,10 +49,11 @@ public class HtmlCreatorUtils {
      * @param headings        list with headings
      * @param rowsWithEntries list with lists. Each list contains the row entries
      * @param tableHeader     the header of the table
+     * @param borderless      should the table be borderless
      * @return the html object as document
      */
-    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, String tableHeader) {
-        return createTable(headings, rowsWithEntries, tableHeader, 100);
+    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, String tableHeader, boolean borderless) {
+        return createTable(headings, rowsWithEntries, tableHeader, 100, borderless);
     }
 
     /**
@@ -55,14 +61,15 @@ public class HtmlCreatorUtils {
      *
      * @param headings        list with headings
      * @param rowsWithEntries list with lists. Each list contains the row entries
+     * @param borderless      should the table be borderless
      * @return the html object as document
      */
-    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries) {
-        return createTable(headings, rowsWithEntries, "", 100);
+    public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, boolean borderless) {
+        return createTable(headings, rowsWithEntries, "", 100, borderless);
     }
 
 
-    public static  Document createPanel(String title){
+    public static Document createPanel(String title) {
         Document doc = Document.createShell("");
         Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
         panel.attr("id", "panel");
@@ -104,8 +111,8 @@ public class HtmlCreatorUtils {
     /**
      * Creates a simple panel with title, text and a list of points.
      *
-     * @param title        title of the panel
-     * @param text         text in the panel
+     * @param title  title of the panel
+     * @param text   text in the panel
      * @param points list with points
      * @return the html object as document
      */

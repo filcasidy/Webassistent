@@ -7,13 +7,13 @@ import java.util.List;
 
 public class WeatherService implements IService {
 
-    private String SHOW_TODAY_WEATHER = "Show today weather";
+    private String SHOW_TODAYS_WEATHER = "Show todays weather";
 
 
     CommandFactory commandFactory = new CommandFactory();
 
     public WeatherService() {
-        commandFactory.addCommand(SHOW_TODAY_WEATHER, new ShowTodayWeatherCommand());
+        commandFactory.addCommand(SHOW_TODAYS_WEATHER, new ShowTodayWeatherCommand());
     }
 
     @Override
@@ -34,8 +34,8 @@ public class WeatherService implements IService {
 
     @Override
     public Object getServiceResponse(String userCommand, List<String> parameter) {
-        if (SHOW_TODAY_WEATHER.equalsIgnoreCase(userCommand)) {
-            return commandFactory.executeCommand(SHOW_TODAY_WEATHER, parameter);
+        if (SHOW_TODAYS_WEATHER.equalsIgnoreCase(userCommand)) {
+            return commandFactory.executeCommand(SHOW_TODAYS_WEATHER, parameter);
         }  else {
             return null;
         }
