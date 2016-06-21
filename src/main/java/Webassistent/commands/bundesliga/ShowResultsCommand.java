@@ -10,7 +10,7 @@ import java.util.List;
 public class ShowResultsCommand implements ICommand {
 
     @Override
-    public Object execute(List<String> para) {
+    public Object execute(List<String> parameter) {
         List<String> keyList = new LinkedList<String>();
         keyList.add("MatchID");
         JsonConnector connector = new JsonConnector();

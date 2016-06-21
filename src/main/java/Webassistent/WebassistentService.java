@@ -11,6 +11,7 @@ import com.google.api.server.spi.response.NotFoundException;
 
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,21 +42,31 @@ public class WebassistentService {
      * @throws NotFoundException
      */
     public Serverresponse getServerresponse(@Named("id") String commandId) throws NotFoundException {
-        String[] arr = commandId.split(",");
-        List<String> para = new LinkedList<String>();
-        String command = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            para.add(arr[i].replace(" ", ""));
-        }
-        try {
-            String rVal = "";
-            for (IService service : services) {
-                if (service.hasCommand(command)) {
-                    rVal = service.getServiceResponse(command, para).toString();
-                }
-            }
-            return rVal.isEmpty() ? noCommandFoundResponse() : new Serverresponse(rVal);
+    	List<String> tempList = new LinkedList<String>();
+    	List<String> parameter = new LinkedList<String>();
+		try {
+			String rVal = "";
+			for (IService service : services) {
+				String[] splitCommand = null;
+				for (String command : service.getCommands()) {
+					if (commandId.startsWith(command)) {
+						splitCommand = commandId.split(command);
+						if (splitCommand.length > 0) {
+							tempList = Arrays.asList(splitCommand[splitCommand.length - 1].split(" "));
+						}
+						for(int i = 0; i < tempList.size(); i++){
+							if(!(tempList.get(i).isEmpty())){
+								parameter.add(tempList.get(i));
+							}
+							
+						}
+						rVal = service.getServiceResponse(command, parameter).toString();
 
+					}
+				}
+
+			}
+			return new Serverresponse(rVal);
         } catch (IndexOutOfBoundsException e) {
             throw new NotFoundException("Error in Service");
         }

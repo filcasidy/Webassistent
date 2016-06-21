@@ -27,5 +27,5 @@ public interface IService {
      * @param userCommand which will be typed in as a command and a parameter List which contains the Parameter for the command.
      * @return an object which contains the response
      */
-    Object getServiceResponse(String userCommand, List<String> para);
+    Object getServiceResponse(String userCommand, List<String> parameter);
 }

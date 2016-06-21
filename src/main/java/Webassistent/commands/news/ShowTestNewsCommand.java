@@ -14,11 +14,11 @@ public class ShowTestNewsCommand implements ICommand {
 	private String outputmode = "&outputMode=json";
 
 	@Override
-	public Object execute(List<String> para) {
+	public Object execute(List<String> parameter) {
 
 		JsonConnector connector = new JsonConnector();
-		for (int i = 0; i < para.size(); i++) {
-			System.out.println(para.get(i));
+		for (int i = 0; i < parameter.size(); i++) {
+			System.out.println(parameter.get(i));
 		}
 //		List<String> jsons = new LinkedList<String>();
 //		jsons.add("status");

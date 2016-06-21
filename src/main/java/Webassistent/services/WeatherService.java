@@ -33,9 +33,9 @@ public class WeatherService implements IService {
     }
 
     @Override
-    public Object getServiceResponse(String userCommand, List<String> para) {
+    public Object getServiceResponse(String userCommand, List<String> parameter) {
         if (SHOW_TODAY_WEATHER.equalsIgnoreCase(userCommand)) {
-            return commandFactory.executeCommand(SHOW_TODAY_WEATHER, para);
+            return commandFactory.executeCommand(SHOW_TODAY_WEATHER, parameter);
         }  else {
             return null;
         }
