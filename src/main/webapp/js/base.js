@@ -33,8 +33,8 @@ google.devrel.samples.hello.SCOPES =
     'https://www.googleapis.com/auth/userinfo.email';
 
 /**
- * Prints a greeting to the greeting log.
- * param {Object} greeting Greeting to print.
+ * Prints the command response.
+ * param {Object} command response to print.
  */
 google.devrel.samples.hello.print = function (response) {
     var responseFieldNode = document.getElementById('responseField');
@@ -50,7 +50,7 @@ google.devrel.samples.hello.print = function (response) {
  * Fills the suggestions with commands.
  */
 google.devrel.fillSuggestions = function () {
-    gapi.client.webassistent.webassistentService.getSuggestions().execute(
+    gapi.client.webassistent.webassistent.getSuggestions().execute(
         function (commands) {
             if (!commands.code) {
                 for (var i = 0; i < commands.items.length; i++) {
@@ -64,11 +64,12 @@ google.devrel.fillSuggestions = function () {
 
 
 /**
- * Gets a numbered greeting via the API.
- * @param {string} id ID of the greeting.
+ * Gets a command response via the API.
+ * @param {string} id ID of the command.
  */
 google.devrel.samples.hello.getGreeting = function (id) {
-    gapi.client.webassistent.webassistentService.getServerresponse({'id': id}).execute(
+    if(!id ==''){
+    gapi.client.webassistent.webassistent.getServerresponse({'id': id}).execute(
         function (resp) {
             if (!resp.code) {
                 google.devrel.samples.hello.print(resp);
@@ -76,6 +77,13 @@ google.devrel.samples.hello.getGreeting = function (id) {
                 window.alert(resp.message);
             }
         });
+    } else {
+        gapi.client.webassistent.webassistent.noCommandFoundResponse().execute(
+            function (noCommandFound) {
+                google.devrel.samples.hello.print(noCommandFound);
+            }
+        )
+    }
 };
 
 /**

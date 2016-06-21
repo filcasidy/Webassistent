@@ -41,46 +41,57 @@ public class Webassistent {
      * @throws NotFoundException
      */
     public ServerResponse getServerresponse(@Named("id") String commandId) throws NotFoundException {
-    	List<String> tempList = new LinkedList<String>();
-    	List<String> parameter = new LinkedList<String>();
-		try {
-			String rVal = "";
-			for (IService service : services) {
-				String[] splitCommand = null;
-				for (String command : service.getCommands()) {
-					if (commandId.startsWith(command)) {
-						splitCommand = commandId.split(command);
-						if (splitCommand.length > 0) {
-							tempList = Arrays.asList(splitCommand[splitCommand.length - 1].split(" "));
-						}
-						for(int i = 0; i < tempList.size(); i++){
-							if(!(tempList.get(i).isEmpty())){
-								parameter.add(tempList.get(i));
-							}
-							
-						}
-						rVal = service.getServiceResponse(command, parameter).toString();
+        List<String> tempList = new LinkedList<String>();
+        List<String> parameter = new LinkedList<String>();
+        try {
+            String rVal = "";
+            for (IService service : services) {
+                String[] splitCommand = null;
+                for (String command : service.getCommands()) {
+                    if (commandId.startsWith(command)) {
+                        splitCommand = commandId.split(command);
+                        if (splitCommand.length > 0) {
+                            tempList = Arrays.asList(splitCommand[splitCommand.length - 1].split(" "));
+                        }
+                        for (int i = 0; i < tempList.size(); i++) {
+                            if (!(tempList.get(i).isEmpty())) {
+                                parameter.add(tempList.get(i));
+                            }
+                        }
+                        rVal = service.getServiceResponse(command, parameter).toString();
+                    }
+                }
 
-					}
-				}
-
-			}
-			return new ServerResponse(rVal);
+            }
+            return isEmptyOrNull(rVal) ? noCommandFoundResponse() : new ServerResponse(rVal);
         } catch (IndexOutOfBoundsException e) {
             throw new NotFoundException("Error in Service");
         }
     }
 
-    private ServerResponse noCommandFoundResponse() {
-        List<String> allSugestions = new LinkedList<>();
-        for (ServerResponse command : getSuggestions()) {
-            allSugestions.add(command.getMessage().toString());
+    private boolean isEmptyOrNull(String value) {
+        if (value == null) {
+            return true;
+        } else if (value.isEmpty()) {
+            return true;
+        } else {
+            return false;
         }
+    }
 
+    /**
+     * Response if the command was not found.
+     * @return a new message with possible commands
+     */
+    public ServerResponse noCommandFoundResponse() {
+        List<String> allSuggestions = new LinkedList<>();
+        for (ServerResponse command : getSuggestions()) {
+            allSuggestions.add(command.getMessage().toString());
+        }
         return new ServerResponse(HtmlCreatorUtils.createPanelWithListOfPoints(
                 "No command found !",
                 "The given does not exist or is typed wrong. Use on of this: ",
-                allSugestions).toString());
+                allSuggestions).toString());
     }
 
 

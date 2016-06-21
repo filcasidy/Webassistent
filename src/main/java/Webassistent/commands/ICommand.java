@@ -10,5 +10,5 @@ public interface ICommand {
     /**
      * Executes the command.
      */
-    Object execute(List<String> para);
+    Object execute(List<String> parameter);
 }
