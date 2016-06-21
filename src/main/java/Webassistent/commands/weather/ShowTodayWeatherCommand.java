@@ -5,6 +5,7 @@ import Webassistent.commands.ICommand;
 import Webassistent.utils.HtmlCreatorUtils;
 import org.json.JSONObject;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.List;
 
@@ -17,8 +18,23 @@ public class ShowTodayWeatherCommand implements ICommand {
         JsonConnector connector = new JsonConnector();
         JSONObject jsonObject = connector.readJsonFromUrl(url);
         int id = Integer.valueOf(connector.getJson(jsonObject, "query.results.channel.item.condition.code").toString());
-        Document document = HtmlCreatorUtils.createPanel("TITEL");
-        document.getElementById("panelBody").appendElement("i").addClass("wi " + WeatherUtils.getClassAttributeFrom(id)).attr("style","padding-bottom: 10px;font-size: 60px");
+        String conditionText = connector.getJson(jsonObject, "query.results.channel.item.condition.text").toString();
+        String temperature = connector.getJson(jsonObject, "query.results.channel.item.condition.temp").toString();
+
+        Document document = HtmlCreatorUtils.createPanel(conditionText);
+        Element panelBody = document.getElementById("panelBody");
+        panelBody.appendElement("i")
+                .addClass("wi " + WeatherUtils.getClassAttributeFrom(id))
+                .attr("style", "padding-bottom: 10px;font-size: 60px");
+        Element firstRowClass = panelBody.appendElement("div").addClass("row");
+        firstRowClass.appendElement("div").addClass("col-md-4").appendText("Temperature");
+        firstRowClass.appendElement("div").addClass("col-md-4").appendText("zweite");
+        firstRowClass.appendElement("div").addClass("col-md-4").appendText("dritte");
+        Element secondRowClass = panelBody.appendElement("div").addClass("row");
+        secondRowClass.appendElement("div").addClass("col-md-4").appendText(temperature + " °C");
+        secondRowClass.appendElement("div").addClass("col-md-4").appendText("2");
+        secondRowClass.appendElement("div").addClass("col-md-4").appendText("3");
+
         return document;
 
     }

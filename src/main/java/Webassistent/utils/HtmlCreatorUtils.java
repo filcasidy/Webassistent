@@ -67,7 +67,7 @@ public class HtmlCreatorUtils {
         Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
         panel.attr("id", "panel");
         Element panelHeading = panel.appendElement("div").addClass("panel-heading");
-        panelHeading.appendElement("h1").addClass("panel-title").text(title);
+        panelHeading.appendElement("h1").addClass("panel-title").appendText(title);
         Element panelBody = panel.appendElement("div").addClass("panel-body");
         panelBody.attr("id", "panelBody");
         return doc;
