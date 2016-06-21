@@ -54,21 +54,9 @@ public class NewsService extends Service {
 	}
 
 	@Override
-	public Object getServiceResponse(String userCommand, List<String> para) {
-
-		// JsonConnector connector = new JsonConnector();
-		// JsonParser parser = new JsonParser();
-
-		// JSONObject obj = new JSONObject();
-		// String url =
-		// "https://api.projectoxford.ai/luis/v1/application?id=592744ff-b759-43b2-9126-a55f9a39830d&subscription-key=343421dc2c054839b23529af0bb62f32&q=";
-		// String para ="search%20Gothic";
-		// obj = connector.readJsonFromUrl(url+para);
-		//
-		// System.out.println(obj.get("entity"));
-
+	public Object getServiceResponse(String userCommand, List<String> parameter) {
 		if (SHOW_NEWS.equalsIgnoreCase(userCommand)) {
-			return commandFactory.executeCommand(SHOW_NEWS, para);
+			return commandFactory.executeCommand(SHOW_NEWS, parameter);
 		} else {
 			return null;
 		}
