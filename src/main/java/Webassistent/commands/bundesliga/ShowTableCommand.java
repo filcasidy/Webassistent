@@ -1,8 +1,8 @@
 package Webassistent.commands.bundesliga;
 
-import java.util.List;
-
 import Webassistent.commands.ICommand;
+
+import java.util.List;
 
 public class ShowTableCommand implements ICommand {
     @Override

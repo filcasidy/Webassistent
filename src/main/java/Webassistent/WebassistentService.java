@@ -3,7 +3,6 @@ package Webassistent;
 import Webassistent.services.BundesligaService;
 import Webassistent.services.IService;
 import Webassistent.services.NewsService;
-
 import Webassistent.services.WeatherService;
 import Webassistent.utils.HtmlCreatorUtils;
 import com.google.api.server.spi.config.Api;
@@ -20,7 +19,7 @@ import java.util.List;
 public class WebassistentService {
 
     private List<IService> services = new ArrayList<>();
-    public static ArrayList<Serverresponse> suggestions = new ArrayList<>();
+    public static ArrayList<ServerResponse> suggestions = new ArrayList<>();
 
     public WebassistentService() {
         this.services.add(new BundesligaService());
@@ -29,7 +28,7 @@ public class WebassistentService {
 
         for (IService service : services) {
             for (String command : service.getCommands())
-                suggestions.add(new Serverresponse(command));
+                suggestions.add(new ServerResponse(command));
         }
     }
 
@@ -41,7 +40,7 @@ public class WebassistentService {
      * If the command does not exist, it responds with message.
      * @throws NotFoundException
      */
-    public Serverresponse getServerresponse(@Named("id") String commandId) throws NotFoundException {
+    public ServerResponse getServerresponse(@Named("id") String commandId) throws NotFoundException {
     	List<String> tempList = new LinkedList<String>();
     	List<String> parameter = new LinkedList<String>();
 		try {
@@ -66,19 +65,19 @@ public class WebassistentService {
 				}
 
 			}
-			return new Serverresponse(rVal);
+			return new ServerResponse(rVal);
         } catch (IndexOutOfBoundsException e) {
             throw new NotFoundException("Error in Service");
         }
     }
 
-    private Serverresponse noCommandFoundResponse() {
+    private ServerResponse noCommandFoundResponse() {
         List<String> allSugestions = new LinkedList<>();
-        for (Serverresponse command : getSuggestions()) {
+        for (ServerResponse command : getSuggestions()) {
             allSugestions.add(command.getMessage().toString());
         }
 
-        return new Serverresponse(HtmlCreatorUtils.createPanelWithListOfPoints(
+        return new ServerResponse(HtmlCreatorUtils.createPanelWithListOfPoints(
                 "No command found !",
                 "The given does not exist or is typed wrong. Use on of this: ",
                 allSugestions).toString());
@@ -90,7 +89,7 @@ public class WebassistentService {
      *
      * @return arraylist with all sugestions (commands)
      */
-    public ArrayList<Serverresponse> getSuggestions() {
+    public ArrayList<ServerResponse> getSuggestions() {
         return suggestions;
     }
 

@@ -1,31 +1,9 @@
 package Webassistent.services;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.json.JSONObject;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
-
-import Webassistent.JsonConnector;
-import Webassistent.JsonParser;
 import Webassistent.commands.CommandFactory;
-import Webassistent.commands.bundesliga.ShowTableCommand;
 import Webassistent.commands.news.ShowTestNewsCommand;
+
+import java.util.List;
 
 public class NewsService extends Service {
 

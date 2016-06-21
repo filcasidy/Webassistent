@@ -1,10 +1,8 @@
 package Webassistent.commands.news;
 
-import org.json.JSONObject;
 import Webassistent.JsonConnector;
 import Webassistent.commands.ICommand;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class ShowTestNewsCommand implements ICommand {
@@ -24,13 +22,13 @@ public class ShowTestNewsCommand implements ICommand {
 //		jsons.add("status");
 //		jsons.add("result");
 //		jsons.add("docs");
-//		List<String> ret = connector.readJsonFromUrl(getNews("Bremen"), jsons);
+//		List<String> ret = connector.readJsonFromUrlToJsonObject(getNews("Bremen"), jsons);
 //		System.out.println(getNews("Bremen"));
 //		for (int i = 0; i< ret.size(); i++){
 //			System.out.println(ret.get(i));
 //		}
 		// System.out.println(getNews("Bremen"));
-		// JSONObject object = connector.readJsonFromUrl(getNews("Bremen"), new
+		// JSONObject object = connector.readJsonFromUrlToJsonObject(getNews("Bremen"), new
 		// LinkedList<String>());
 		// System.out.println(object);
 		// if (object.get("status").equals("OK")) {

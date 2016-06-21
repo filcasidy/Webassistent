@@ -1,13 +1,16 @@
 package Webassistent;
 
-public class Serverresponse {
+/**
+ * The main response class.
+ */
+public class ServerResponse {
 
     public String response;
 
-    public Serverresponse() {
+    public ServerResponse() {
     }
 
-    public Serverresponse(String response) {
+    public ServerResponse(String response) {
         this.response = response;
     }
 

@@ -16,7 +16,7 @@ public class ShowTodayWeatherCommand implements ICommand {
     @Override
     public Object execute(List<String> parameter) {
         JsonConnector connector = new JsonConnector();
-        JSONObject jsonObject = connector.readJsonFromUrl(url);
+        JSONObject jsonObject = connector.readJsonFromUrlToJsonObject(url);
         int id = Integer.valueOf(connector.getJson(jsonObject, "query.results.channel.item.condition.code").toString());
         String conditionText = connector.getJson(jsonObject, "query.results.channel.item.condition.text").toString();
         String temperature = connector.getJson(jsonObject, "query.results.channel.item.condition.temp").toString();

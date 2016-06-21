@@ -7,6 +7,7 @@ public class BundesligaServiceTest {
 
     @org.junit.Test
     public void test1() throws Exception {
+        System.err.println(bundesligaService.getServiceResponse("Show results from yesterday", null));
 
     }
 
