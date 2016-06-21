@@ -3,6 +3,7 @@ package Webassistent.utils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,6 +67,20 @@ public class HtmlCreatorUtils {
      */
     public static Document createTable(List<String> headings, List<List<String>> rowsWithEntries, boolean borderless) {
         return createTable(headings, rowsWithEntries, "", 100, borderless);
+    }
+
+    /**
+     * Creates a list with values which are needed for example for table heading or table row.
+     *
+     * @param informationValues values
+     * @return {@link List} with given information values
+     */
+    public static List<String> createListWithInformationValues(String... informationValues) {
+        List<String> listWithInformationValues = new ArrayList<>();
+        for (int i = 0; i < informationValues.length; i++) {
+            listWithInformationValues.add(informationValues[i]);
+        }
+        return listWithInformationValues;
     }
 
 

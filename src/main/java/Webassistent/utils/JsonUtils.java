@@ -14,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 /**
- *
+ * Utils class with useful methods to get different Json objects from the REST-API Url.
  */
 public class JsonUtils {
 
@@ -24,7 +24,7 @@ public class JsonUtils {
      * @param url to the data (REST)
      * @return JSONObject for further work
      */
-    public JSONObject readJsonFromUrlToJsonObject(String url) {
+    public static JSONObject readJsonFromUrlToJsonObject(String url) {
         return new JSONObject(readJsonFromUrlToString(url));
     }
     /**
@@ -33,7 +33,7 @@ public class JsonUtils {
      * @param url to the data (REST)
      * @return JSONArray for further work
      */
-    public JSONArray readJsonFromUrlToJsonArray(String url) {
+    public static JSONArray readJsonFromUrlToJsonArray(String url) {
         return new JSONArray(readJsonFromUrlToString(url));
     }
 
@@ -43,7 +43,7 @@ public class JsonUtils {
      * @param url to the data (REST)
      * @return String for further work
      */
-    public String readJsonFromUrlToString(String url) {
+    public static String readJsonFromUrlToString(String url) {
         String jsonData = "";
         InputStream inputStream = null;
         BufferedReader bufferedReader = null;
@@ -75,7 +75,7 @@ public class JsonUtils {
      * @param path to the wished json object for example: query.results.channel
      * @return the object found from the given path
      */
-    public Object getJson(JSONObject json, String path) {
+    public static Object getJson(JSONObject json, String path) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             Object jsonObj = objectMapper.readValue(json.toString(), Object.class);

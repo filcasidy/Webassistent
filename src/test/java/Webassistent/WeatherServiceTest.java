@@ -8,6 +8,6 @@ public class WeatherServiceTest {
 
     @org.junit.Test
     public void test1() throws Exception {
-        weatherService.getServiceResponse("Show today weather", null);
+        weatherService.getServiceResponse("Show weather for next days", null);
     }
 }

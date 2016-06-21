@@ -3,11 +3,10 @@ package Webassistent.commands.news;
 import Webassistent.commands.ICommand;
 import Webassistent.utils.HtmlCreatorUtils;
 import Webassistent.utils.JsonUtils;
-
-import java.util.List;
-
 import org.json.JSONObject;
 import org.jsoup.nodes.Document;
+
+import java.util.List;
 
 public class ShowTestNewsCommand implements ICommand {
 
@@ -18,8 +17,7 @@ public class ShowTestNewsCommand implements ICommand {
 	@Override
 	public Object execute(List<String> parameter) {
 
-		JsonUtils connector = new JsonUtils();
-		JSONObject mainobject = connector.readJsonFromUrlToJsonObject(getNews(parameter.get(parameter.size() - 1)));
+		JSONObject mainobject = JsonUtils.readJsonFromUrlToJsonObject(getNews(parameter.get(parameter.size() - 1)));
 		System.out.println(getNews(parameter.get(parameter.size() - 1)));
 
 		System.out.println(mainobject);
@@ -32,9 +30,9 @@ public class ShowTestNewsCommand implements ICommand {
 
 				for (int i = 0; i < docs.length(); i++) {
 					JSONObject jsonObj = docs.getJSONObject(i);
-					title = connector.getJson(jsonObj, "source.enriched.url.title").toString();
-					text = connector.getJson(jsonObj, "source.enriched.url.text").toString();
-					url = connector.getJson(jsonObj, "source.original.url").toString();
+					title = JsonUtils.getJson(jsonObj, "source.enriched.url.title").toString();
+					text = JsonUtils.getJson(jsonObj, "source.enriched.url.text").toString();
+					url = JsonUtils.getJson(jsonObj, "source.original.url").toString();
 					document = HtmlCreatorUtils.createPanel(title, text, url);
 				}
 
