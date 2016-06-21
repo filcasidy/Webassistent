@@ -1,4 +1,4 @@
-package Webassistent;
+package Webassistent.utils;
 
 
 import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 /**
  *
  */
-public class JsonConnector {
+public class JsonUtils {
 
     /**
      * Gets the {@link JSONObject} form the given url.

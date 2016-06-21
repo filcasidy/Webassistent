@@ -1,7 +1,7 @@
 package Webassistent.commands.news;
 
-import Webassistent.JsonConnector;
 import Webassistent.commands.ICommand;
+import Webassistent.utils.JsonUtils;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class ShowTestNewsCommand implements ICommand {
 	@Override
 	public Object execute(List<String> parameter) {
 
-		JsonConnector connector = new JsonConnector();
+		JsonUtils connector = new JsonUtils();
 		for (int i = 0; i < parameter.size(); i++) {
 			System.out.println(parameter.get(i));
 		}

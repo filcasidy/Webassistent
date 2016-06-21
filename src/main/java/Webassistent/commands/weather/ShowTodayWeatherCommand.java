@@ -1,8 +1,8 @@
 package Webassistent.commands.weather;
 
-import Webassistent.JsonConnector;
 import Webassistent.commands.ICommand;
 import Webassistent.utils.HtmlCreatorUtils;
+import Webassistent.utils.JsonUtils;
 import org.json.JSONObject;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +15,7 @@ public class ShowTodayWeatherCommand implements ICommand {
 
     @Override
     public Object execute(List<String> parameter) {
-        JsonConnector connector = new JsonConnector();
+        JsonUtils connector = new JsonUtils();
         JSONObject jsonObject = connector.readJsonFromUrlToJsonObject(url);
         int id = Integer.valueOf(connector.getJson(jsonObject, "query.results.channel.item.condition.code").toString());
         String conditionText = connector.getJson(jsonObject, "query.results.channel.item.condition.text").toString();

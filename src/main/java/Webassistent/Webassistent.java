@@ -16,12 +16,12 @@ import java.util.List;
 
 @Api(name = "webassistent", version = "v1", scopes = {Constants.EMAIL_SCOPE}, clientIds = {Constants.WEB_CLIENT_ID,
         Constants.ANDROID_CLIENT_ID, Constants.IOS_CLIENT_ID}, audiences = {Constants.ANDROID_AUDIENCE})
-public class WebassistentService {
+public class Webassistent {
 
     private List<IService> services = new ArrayList<>();
     public static ArrayList<ServerResponse> suggestions = new ArrayList<>();
 
-    public WebassistentService() {
+    public Webassistent() {
         this.services.add(new BundesligaService());
         this.services.add(new WeatherService());
         this.services.add(new NewsService());
