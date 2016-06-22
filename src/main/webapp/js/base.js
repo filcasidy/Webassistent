@@ -68,15 +68,16 @@ google.devrel.fillSuggestions = function () {
  * @param {string} id ID of the command.
  */
 google.devrel.samples.hello.getGreeting = function (id) {
-    if(!id ==''){
-    gapi.client.webassistent.webassistent.getServerresponse({'id': id}).execute(
-        function (resp) {
-            if (!resp.code) {
-                google.devrel.samples.hello.print(resp);
-            } else {
-                window.alert(resp.message);
-            }
-        });
+    if (!id == '') {
+        gapi.client.webassistent.webassistent.getServerresponse({'id': id}).execute(
+            function (resp) {
+                if (!resp.code) {
+                    google.devrel.samples.hello.print(resp);
+                    enableSpeach(resp);
+                } else {
+                    window.alert(resp.message);
+                }
+            });
     } else {
         gapi.client.webassistent.webassistent.noCommandFoundResponse().execute(
             function (noCommandFound) {
@@ -95,13 +96,20 @@ google.devrel.samples.hello.enableButtons = function () {
             document.getElementById('messageField').value);
     }
 };
+function enableSpeach(element) {
+    var end = element.message.indexOf("°C");
+    var start = element.message.indexOf("°C") - 3;
+    var found = "The current temperature is " + element.message.substring(start, end) + " degree";
+
+    var utterance = new SpeechSynthesisUtterance(found);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+}
 /**
-* Initializes the application.
-* @param {string} apiRoot Root of the API's path.
-*/
+ * Initializes the application.
+ * @param {string} apiRoot Root of the API's path.
+ */
 google.devrel.samples.hello.init = function (apiRoot) {
-    // Loads the helloworld API asynchronously, and triggers login
-    // when they have completed.
     console.log('ready');
     var apisToLoad;
     var callback = function () {

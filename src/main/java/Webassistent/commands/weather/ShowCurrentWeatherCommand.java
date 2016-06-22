@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Weather command to get today's weather.
+ * Weather command to get current weather.
  */
-public class ShowTodayWeatherCommand implements ICommand {
+public class ShowCurrentWeatherCommand implements ICommand {
     private JSONObject jsonObject;
 
 
-    public ShowTodayWeatherCommand() {
+    public ShowCurrentWeatherCommand() {
         setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(WeatherConstants.DEFAULT_CITY_BREMEN)));
     }
 
