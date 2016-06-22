@@ -37,8 +37,12 @@ public class HtmlCreatorUtils {
         }
         for (List<String> row : rowsWithEntries) {
             Element tableEntry = table.appendElement("tr");
-            for (String entrie : row) {
-                tableEntry.appendElement("td").text(entrie);
+            for (String entry : row) {
+                if (entry.startsWith("<")){
+                    tableEntry.appendElement("td").append(entry);
+                }else {
+                    tableEntry.appendElement("td").text(entry);
+                }
             }
         }
         return doc;
@@ -89,7 +93,7 @@ public class HtmlCreatorUtils {
         Element panel = doc.body().appendElement("div").addClass("panel panel-default animated fadeInDown");
         panel.attr("id", "panel");
         Element panelHeading = panel.appendElement("div").addClass("panel-heading");
-        panelHeading.appendElement("h1").addClass("panel-title").appendText(title);
+        panelHeading.appendElement("h1").addClass("panel-title").appendText(title).attr("style","font-size: 36px;");
         Element panelBody = panel.appendElement("div").addClass("panel-body");
         panelBody.attr("id", "panelBody");
         return doc;
