@@ -10,15 +10,15 @@ import java.util.List;
 public class BundesligaService extends Service {
 
     private String SHOW_TABLE = "Show actual table information";
-    private String SHOW_RESULTS = "Show results from yesterday";
+    private String SHOW_RESULTS = "Show results from";
     private String SHOW_TEAM_INFORMATION = "Show team information";
 
     CommandFactory commandFactory = new CommandFactory();
 
     public BundesligaService() {
-        commandFactory.addCommand(SHOW_TABLE, new ShowTableCommand());
+        //commandFactory.addCommand(SHOW_TABLE, new ShowTableCommand());
         commandFactory.addCommand(SHOW_RESULTS, new ShowResultsCommand());
-        commandFactory.addCommand(SHOW_TEAM_INFORMATION, new ShowTeamInformationCommand());
+        //commandFactory.addCommand(SHOW_TEAM_INFORMATION, new ShowTeamInformationCommand());
     }
 
     @Override

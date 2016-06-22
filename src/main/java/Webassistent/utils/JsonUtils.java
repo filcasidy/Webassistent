@@ -85,4 +85,23 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * Gets the jsonarray object from given json by the given path.
+     *
+     * @param jsonArray the whole json object
+     * @param path to the wished json object for example: query.results.channel
+     * @return the object found from the given path
+     */
+    public static Object getJson(JSONArray jsonArray, String path) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(jsonArray);
+        try {
+            Object jsonObj = objectMapper.readValue(jsonArray.toString(), Object.class);
+
+            return PropertyUtils.getProperty(jsonObj, path);
+        } catch (Exception e) {
+            return "Could not find given json with the query: " + path;
+        }
+    }
+
 }
