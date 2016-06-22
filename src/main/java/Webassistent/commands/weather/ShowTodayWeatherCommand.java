@@ -23,7 +23,7 @@ public class ShowTodayWeatherCommand implements ICommand {
 
     @Override
     public Object execute(List<String> parameter) {
-        if (!parameter.isEmpty()) {
+        if (parameter != null && !parameter.isEmpty()) {
             if (parameter.get(0).equalsIgnoreCase("for")) {
                 setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(parameter.get(1))));
             } else {

@@ -22,7 +22,7 @@ public class ShowWeatherForNextDaysCommand implements ICommand {
 
     @Override
     public Object execute(List<String> parameter) {
-        if (!parameter.isEmpty()) {
+        if (parameter != null && !parameter.isEmpty()) {
             if (parameter.get(0).equalsIgnoreCase("for")) {
                 JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(parameter.get(1)));
             } else {
