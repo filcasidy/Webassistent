@@ -23,13 +23,16 @@ public class ShowTodayWeatherCommand implements ICommand {
 
     @Override
     public Object execute(List<String> parameter) {
-        if (!parameter.isEmpty()) {
-            if (parameter.get(0).equalsIgnoreCase("for")) {
-                setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(parameter.get(1))));
-            } else {
-                setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(parameter.get(0))));
+        if (parameter != null && !parameter.isEmpty()) {
+            String completeParameter = "";
+            for (String value : parameter) {
+                if (!value.contains("for")) {
+                    completeParameter += value;
+                }
             }
+            setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(completeParameter)));
         }
+
         String id = getJson("query.results.channel.item.condition.code");
         String windSpeed = getJson("query.results.channel.wind.speed");
         String conditionText = getJson("query.results.channel.item.condition.text");
