@@ -16,7 +16,7 @@ public class ShowTestNewsCommand implements ICommand {
 
 	@Override
 	public Object execute(List<String> parameter) {
-
+		Document document = null;
 		JSONObject mainobject = JsonUtils.readJsonFromUrlToJsonObject(getNews(parameter.get(parameter.size() - 1)));
 		System.out.println(getNews(parameter.get(parameter.size() - 1)));
 
@@ -24,7 +24,7 @@ public class ShowTestNewsCommand implements ICommand {
 		if (mainobject.get("status").equals("OK")) {
 			JSONObject result = mainobject.getJSONObject("result");
 			String title = "Nothing found", text = null, url = null;
-			Document document = null;
+
 			if (result.has("docs")) {
 				org.json.JSONArray docs = result.getJSONArray("docs");
 
@@ -33,9 +33,12 @@ public class ShowTestNewsCommand implements ICommand {
 					title = JsonUtils.getJson(jsonObj, "source.enriched.url.title").toString();
 					text = JsonUtils.getJson(jsonObj, "source.enriched.url.text").toString();
 					url = JsonUtils.getJson(jsonObj, "source.original.url").toString();
-					document = HtmlCreatorUtils.createPanel(title, text, url);
+					document = HtmlCreatorUtils.createPanel(title, text, url) ;
+					System.out.println(HtmlCreatorUtils.createPanel(title, text, url).toString());
 				}
 
+			} else {
+				document = HtmlCreatorUtils.createPanel("No news found");
 			}
 			return document;
 		} else {
