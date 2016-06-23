@@ -97,6 +97,7 @@ google.devrel.samples.hello.enableButtons = function () {
     }
 };
 function enableSpeach(element) {
+    if(element.message.indexOf("audio") !== -1){
     var end = element.message.indexOf("°C");
     var start = element.message.indexOf("°C") - 3;
     var found = "The current temperature is " + element.message.substring(start, end) + " degree";
@@ -104,6 +105,7 @@ function enableSpeach(element) {
     var utterance = new SpeechSynthesisUtterance(found);
     utterance.lang = 'en-US';
     window.speechSynthesis.speak(utterance);
+    }
 }
 /**
  * Initializes the application.

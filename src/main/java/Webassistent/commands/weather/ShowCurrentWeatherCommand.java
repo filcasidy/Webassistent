@@ -47,7 +47,7 @@ public class ShowCurrentWeatherCommand implements ICommand {
         Document responseDocument = HtmlCreatorUtils.createPanel(cityAndCountry);
         Element panelBody = responseDocument.getElementById("panelBody");
         panelBody.appendElement("i")
-                .addClass("wi " + WeatherUtils.getClassAttributeFrom(Integer.valueOf(id)))
+                .addClass("wi " + WeatherUtils.getClassAttributeFrom(Integer.valueOf(id)) + " audio")
                 .attr("style", "padding: 10px;font-size: 60px");
 
         panelBody.append(HtmlCreatorUtils.createTable(
