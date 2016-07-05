@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Weather service containing weather commands.
  */
-public class WeatherService implements IService {
+public class WeatherService extends Service {
 
     private String SHOW_CURRENT_WEATHER = "Show current weather";
     private String SHOW_WEATHER_FOR_NEXT_DAYS = "Show weather for next days";

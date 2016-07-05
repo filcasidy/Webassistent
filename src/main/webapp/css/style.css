@@ -36,3 +36,18 @@ form {
 .borderless td, .borderless th {
     border: none;
 }
+
+#record {
+    background: #fff url("/images/microphone_32.png") no-repeat;
+    background-size: contain;
+    background-position-y: 4px;
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+#record.recording {
+    background: red;
+    background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+    background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+    background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+}

@@ -86,7 +86,7 @@ public class Webassistent {
     public ServerResponse noCommandFoundResponse() {
         List<String> allSuggestions = new LinkedList<>();
         for (ServerResponse command : getSuggestions()) {
-            allSuggestions.add(command.getMessage().toString());
+            allSuggestions.add(command.getMessage());
         }
         return new ServerResponse(HtmlCreatorUtils.createPanelWithListOfPoints(
                 "No command found !",

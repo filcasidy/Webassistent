@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -81,9 +82,7 @@ public class HtmlCreatorUtils {
      */
     public static List<String> createListWithInformationValues(String... informationValues) {
         List<String> listWithInformationValues = new ArrayList<>();
-        for (int i = 0; i < informationValues.length; i++) {
-            listWithInformationValues.add(informationValues[i]);
-        }
+        Collections.addAll(listWithInformationValues, informationValues);
         return listWithInformationValues;
     }
 
