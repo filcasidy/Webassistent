@@ -62,6 +62,37 @@ google.devrel.fillSuggestions = function () {
         });
 };
 
+google.devrel.getAudioResponse = function (blob) {
+    // getData(blob,function (decoded) {
+        // var arr = [];
+        // arr[0] = decoded;
+        gapi.client.webassistent.getResponce(blob).execute(
+            function (resp) {
+                if (!resp.code) {
+                    google.devrel.samples.hello.print(resp);
+                } else {
+                    window.alert(resp.message);
+                }
+            });
+    // });
+};
+
+function getData(audioFile, callback) {
+    // var reader = new FileReader();
+    // reader.onload = function(event) {
+    //     var data = event.target.result.split(',')
+    //         , decodedImageData = btoa(data[1]);                    // the actual conversion of data from binary to base64 format
+    //     callback(decodedImageData);
+    // };
+    // reader.readAsDataURL(audioFile);
+    var reader = new window.FileReader();
+    reader.readAsDataURL(audioFile);
+    reader.onloadend = function() {
+        base64data = reader.result;
+        callback(base64data);
+    }
+}
+
 
 /**
  * Gets a command response via the API.

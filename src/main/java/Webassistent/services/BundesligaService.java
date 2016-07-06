@@ -2,8 +2,6 @@ package Webassistent.services;
 
 import Webassistent.commands.CommandFactory;
 import Webassistent.commands.bundesliga.ShowResultsCommand;
-import Webassistent.commands.bundesliga.ShowTableCommand;
-import Webassistent.commands.bundesliga.ShowTeamInformationCommand;
 
 import java.util.List;
 

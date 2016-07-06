@@ -5,14 +5,17 @@ import Webassistent.services.IService;
 import Webassistent.services.NewsService;
 import Webassistent.services.WeatherService;
 import Webassistent.utils.HtmlCreatorUtils;
+import Webassistent.utils.Transcriber;
 import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.repackaged.com.google.common.util.Base64;
+import org.json.JSONObject;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 @Api(name = "webassistent", version = "v1", scopes = {Constants.EMAIL_SCOPE}, clientIds = {Constants.WEB_CLIENT_ID,
         Constants.ANDROID_CLIENT_ID, Constants.IOS_CLIENT_ID}, audiences = {Constants.ANDROID_AUDIENCE})
@@ -79,8 +82,21 @@ public class Webassistent {
         }
     }
 
+
+    @ApiMethod(name = "getResponce", path = "get_responce", httpMethod = ApiMethod.HttpMethod.POST)
+    public ServerResponse getResponce(Object file) throws NotFoundException {
+        String s = file.toString();
+//        for (Object c : ((LinkedHashMap) file).values()) {
+//            s += c;
+//        }
+//        String testing = Transcriber.testing(new File(String.valueOf(javax.xml.bind.DatatypeConverter.parseBase64Binary(s))));
+
+        return new ServerResponse(s);
+    }
+
     /**
      * Response if the command was not found.
+     *
      * @return a new message with possible commands
      */
     public ServerResponse noCommandFoundResponse() {

@@ -18,11 +18,14 @@ public class ShowCurrentWeatherCommand implements ICommand {
 
 
     public ShowCurrentWeatherCommand() {
-        setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(WeatherConstants.DEFAULT_CITY_BREMEN)));
+
     }
 
     @Override
     public Object execute(List<String> parameter) {
+        if (getJsonObject() == null) {
+            setJsonObject(JsonUtils.readJsonFromUrlToJsonObject(WeatherUtils.getUrlOfGivenCity(WeatherConstants.DEFAULT_CITY_BREMEN)));
+        }
         if (parameter != null && !parameter.isEmpty()) {
             String completeParameter = "";
             for (String value : parameter) {

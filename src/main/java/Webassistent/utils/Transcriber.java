@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 public class Transcriber {
 
-    private Configuration configuration;
+    public static Configuration configuration;
 
     public Transcriber() {
         configuration = new Configuration();
@@ -20,20 +20,22 @@ public class Transcriber {
     }
 
 
-    public void testing() {
+    public static String testing(File file) {
+        String rVal = "";
         try {
             StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
-            InputStream stream = new FileInputStream(new File("test.wav"));
+            InputStream stream = new FileInputStream(file);
 
             recognizer.startRecognition(stream);
             SpeechResult result;
             while ((result = recognizer.getResult()) != null) {
-                System.out.format("Hypothesis: %s\n", result.getHypothesis());
+                rVal += result.getHypothesis();
             }
             recognizer.stopRecognition();
         } catch (Exception e) {
             System.err.println("Something went wrong");
         }
+        return rVal;
     }
 
 

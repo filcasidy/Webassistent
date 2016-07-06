@@ -27,6 +27,8 @@ var recIndex = 0;
 
 function doneEncoding(blob) {
     Recorder.setupDownload(blob, "myRecording" + ((recIndex < 10) ? "0" : "") + recIndex + ".wav");
+    var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    google.devrel.getAudioResponse(url);
     recIndex++;
 }
 

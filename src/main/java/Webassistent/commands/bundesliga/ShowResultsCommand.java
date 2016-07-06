@@ -1,7 +1,6 @@
 package Webassistent.commands.bundesliga;
 
 import Webassistent.commands.ICommand;
-import Webassistent.commands.weather.WeatherUtils;
 import Webassistent.utils.HtmlCreatorUtils;
 import Webassistent.utils.JsonUtils;
 import org.json.JSONArray;
