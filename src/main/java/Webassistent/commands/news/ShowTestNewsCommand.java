@@ -8,6 +8,10 @@ import org.jsoup.nodes.Document;
 
 import java.util.List;
 
+/**
+ * Search News to a theme.
+ */
+
 public class ShowTestNewsCommand implements ICommand {
 
 	private String urlendpoint = "https://gateway-a.watsonplatform.net/calls/data/GetNews";
@@ -18,25 +22,20 @@ public class ShowTestNewsCommand implements ICommand {
 	public Object execute(List<String> parameter) {
 		Document document = null;
 		if (parameter.size() > 0) {
-			JSONObject mainobject = JsonUtils.readJsonFromUrlToJsonObject(getNews(parameter.get(parameter.size() - 1)));
-			System.out.println(getNews(parameter.get(parameter.size() - 1)));
+			String thema = parameter.get(0);
+			int newscount = 3;
+			if (parameter.size() > 1) {
+				newscount = Integer.parseInt(parameter.get(1));
+			}
+			JSONObject mainobject = JsonUtils.readJsonFromUrlToJsonObject(getNews(thema, newscount));
 
 			System.out.println(mainobject);
 			if (mainobject.get("status").equals("OK")) {
 				JSONObject result = mainobject.getJSONObject("result");
-				String title = "Nothing found", text = null, url = null;
 
 				if (result.has("docs")) {
 					org.json.JSONArray docs = result.getJSONArray("docs");
-
-					for (int i = 0; i < docs.length(); i++) {
-						JSONObject jsonObj = docs.getJSONObject(i);
-						title = JsonUtils.getJson(jsonObj, "source.enriched.url.title").toString();
-						text = JsonUtils.getJson(jsonObj, "source.enriched.url.text").toString();
-						url = JsonUtils.getJson(jsonObj, "source.original.url").toString();
-						document = HtmlCreatorUtils.createPanel(title, text, url);
-						System.out.println(HtmlCreatorUtils.createPanel(title, text, url).toString());
-					}
+					document = searchdocs(docs);
 
 				} else {
 					document = HtmlCreatorUtils.createPanel("No news found");
@@ -49,18 +48,35 @@ public class ShowTestNewsCommand implements ICommand {
 			}
 			return mainobject;
 		}
-		return "Bitte Such Kriterium angeben";
+		return document = HtmlCreatorUtils.createPanel("No search criteria found");
 
 	}
 
-	public String getNews(String thema) {
-
-		String period = "&start=now-6d&end=now&count=2";
+	/**
+	 * request to get the news to theme and the count of the news
+	 */
+	private String getNews(String thema, int count) {
+		String period = "&start=now-6d&end=now&count=" + count;
 		String para = "&q.enriched.url.title=" + thema;
 		String re = "&return=enriched.url.text,original.url,enriched.url.title";
-
 		return urlendpoint + apikey + outputmode + period + para + re;
+	}
 
+	private Document searchdocs(org.json.JSONArray docs) {
+		String title = "Nothing found", text = null, url = null;
+		Document document = null;
+		for (int i = 0; i < docs.length(); i++) {
+			JSONObject jsonObj = docs.getJSONObject(i);
+			title = JsonUtils.getJson(jsonObj, "source.enriched.url.title").toString();
+			text = JsonUtils.getJson(jsonObj, "source.enriched.url.text").toString();
+			url = JsonUtils.getJson(jsonObj, "source.original.url").toString();
+			if (document == null) {
+				document = HtmlCreatorUtils.createPanel(title, text, url);
+			} else {
+				document.append(HtmlCreatorUtils.createPanel(title, text, url).toString());
+			}
+		}
+		return document;
 	}
 
 }

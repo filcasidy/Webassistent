@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NewsService extends Service {
 
-	private String SHOW_NEWS = "Show news";
+	private String SHOW_NEWS = "Show News";
 
 	CommandFactory commandFactory = new CommandFactory();
 
