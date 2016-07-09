@@ -63,10 +63,10 @@ google.devrel.fillSuggestions = function () {
 };
 
 google.devrel.getAudioResponse = function (blob) {
-    // getData(blob,function (decoded) {
-        // var arr = [];
-        // arr[0] = decoded;
-        gapi.client.webassistent.getResponce(blob).execute(
+    getData(blob,function (enc) {
+        var encodedObject = {encoded: ""}
+        encodedObject.encoded = enc;
+        gapi.client.webassistent.getResponce(encodedObject).execute(
             function (resp) {
                 if (!resp.code) {
                     google.devrel.samples.hello.print(resp);
@@ -74,7 +74,7 @@ google.devrel.getAudioResponse = function (blob) {
                     window.alert(resp.message);
                 }
             });
-    // });
+    });
 };
 
 function getData(audioFile, callback) {
@@ -85,12 +85,24 @@ function getData(audioFile, callback) {
     //     callback(decodedImageData);
     // };
     // reader.readAsDataURL(audioFile);
+    // reader.readAsDataURL(audioFile);
+
     var reader = new window.FileReader();
-    reader.readAsDataURL(audioFile);
+
     reader.onloadend = function() {
         base64data = reader.result;
         callback(base64data);
-    }
+    };
+    reader.readAsDataURL(audioFile);
+
+    // var arrayBuffer;
+    // var fileReader = new FileReader();
+    // fileReader.onload = function() {
+    //     arrayBuffer = this.result;
+    //     callback(arrayBuffer);
+    // };
+    // fileReader.readAsArrayBuffer(audioFile);
+
 }
 
 

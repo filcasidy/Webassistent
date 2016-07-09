@@ -4,27 +4,32 @@ import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 public class Transcriber {
 
-    public static Configuration configuration;
+    public Configuration configuration;
+    public StreamSpeechRecognizer recognizer;
 
     public Transcriber() {
         configuration = new Configuration();
         configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
         configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
         configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
+        try {
+            recognizer = new StreamSpeechRecognizer(configuration);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public static String testing(File file) {
+    public String testing(byte[] file) {
         String rVal = "";
         try {
-            StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
-            InputStream stream = new FileInputStream(file);
+
+            InputStream stream = new ByteArrayInputStream(file);
+//            InputStream stream = new FileInputStream(new File("/home/filcasidy/Downloads/myRecording00.wav"));
 
             recognizer.startRecognition(stream);
             SpeechResult result;
@@ -33,7 +38,9 @@ public class Transcriber {
             }
             recognizer.stopRecognition();
         } catch (Exception e) {
+            recognizer.stopRecognition();
             System.err.println("Something went wrong");
+            return rVal;
         }
         return rVal;
     }

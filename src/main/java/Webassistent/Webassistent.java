@@ -9,12 +9,15 @@ import Webassistent.utils.Transcriber;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.response.NotFoundException;
-import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.repackaged.com.google.common.util.Base64;
-import org.json.JSONObject;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 
 import javax.inject.Named;
+import javax.sound.sampled.*;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.*;
 
 @Api(name = "webassistent", version = "v1", scopes = {Constants.EMAIL_SCOPE}, clientIds = {Constants.WEB_CLIENT_ID,
@@ -23,6 +26,7 @@ public class Webassistent {
 
     private List<IService> services = new ArrayList<>();
     public static ArrayList<ServerResponse> suggestions = new ArrayList<>();
+    Transcriber transcriber = null;
 
     public Webassistent() {
         this.services.add(new BundesligaService());
@@ -33,6 +37,7 @@ public class Webassistent {
             for (String command : service.getCommands())
                 suggestions.add(new ServerResponse(command));
         }
+        transcriber = new Transcriber();
     }
 
     /**
@@ -85,13 +90,41 @@ public class Webassistent {
 
     @ApiMethod(name = "getResponce", path = "get_responce", httpMethod = ApiMethod.HttpMethod.POST)
     public ServerResponse getResponce(Object file) throws NotFoundException {
-        String s = file.toString();
-//        for (Object c : ((LinkedHashMap) file).values()) {
-//            s += c;
-//        }
-//        String testing = Transcriber.testing(new File(String.valueOf(javax.xml.bind.DatatypeConverter.parseBase64Binary(s))));
 
-        return new ServerResponse(s);
+        String testing = "";
+        File audio = new File("");
+        String s = file.getClass().toString();
+        try {
+
+            String base = ((LinkedHashMap) file).get("encoded").toString();
+            int comma = base.indexOf(",");
+            base = base.substring(++comma);
+            byte[] audioDataBytes = Base64.decodeBase64(base);
+            testing = transcriber.testing(audioDataBytes);
+
+        } catch (Exception e) {
+            return new ServerResponse("failed");
+        }
+
+
+//        File audio = new File("");
+//        for (Object c : ((LinkedHashMap) file).values()) {
+//            if (c.toString().length() <= 1) {
+//                s += c;
+//            }
+//        }
+//        try {
+//           FileUtils.copyURLToFile(new URL(s), audio);
+//
+//        } catch (Exception e) {
+//            return new ServerResponse("failed");
+//        }
+
+//        String testing = Transcriber.testing(audio);
+
+
+
+        return new ServerResponse(testing+ " here");
     }
 
     /**

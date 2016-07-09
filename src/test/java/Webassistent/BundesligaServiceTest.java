@@ -2,9 +2,6 @@ package Webassistent;
 
 import Webassistent.services.BundesligaService;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class BundesligaServiceTest {
     BundesligaService bundesligaService = new BundesligaService();
 
